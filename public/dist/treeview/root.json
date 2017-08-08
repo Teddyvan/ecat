@@ -1,0 +1,10 @@
+[
+					{ "text" : "Programme", "children" : [
+							{ "text" : "act 1", "id" : 1 },
+							{ "text" : "act 2","id" : 3 }
+					]},
+					{ "text" : "Root node 2", "children" : [
+							{ "text" : "act 3", "id" : 1 },
+							{ "text" : "act 4","id" : 3 }
+					]}
+]
