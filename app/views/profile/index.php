@@ -8,3 +8,8 @@
 	<?php include_once("modal/technique.php"); ?>
 
 <?php endif; ?>
+<?php if($type == RAN) :?>
+ 
+	<?php include_once("modal/rame.php"); ?>
+
+<?php endif; ?>

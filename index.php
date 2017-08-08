@@ -1,6 +1,7 @@
 <?php
 require_once 'config/config.php';
-
+// echo DOCUMENT_ROOT ;
+// echo SERVER ;
 define("ROOT",DOCUMENT_ROOT);
 require DOCUMENT_ROOT.'/app/App.php';
 App::load();
@@ -61,7 +62,6 @@ $fichier = str_replace('\\','/',$fichier);
 
 if(is_file($fichier))
 {
-	
 	$controller =  new $controller();
 	if(method_exists($controller,$action))
 		call_user_func_array(array($controller,$action),$param);

@@ -326,6 +326,13 @@ class EvaluationController extends AppController
         else
 			$this->redirect("Evaluation/login");
 	}
-	
+	/**
+	Deconnexion de l'application
+	*/
+	public function deconnexion()
+	{
+		$this->destroy();
+		$this->redirect("Evaluation/login");
+	}
 
 }

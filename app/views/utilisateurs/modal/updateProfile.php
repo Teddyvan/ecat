@@ -39,10 +39,9 @@
 												 <label class="col-md-3 control-label">Groupe <span class="required">*</span></label>
 												 <div class="col-md-6">
 													 <select required="true" id="updtidgroupe" name='idGroupe' class="form-control">
-															 <option value='-1'>Selectionnez le groupe de l'utilsateur</option>
-																<?php foreach($groupes as $groupe):?>
-																 <option value ='<?=$groupe['id']?>'><?=$groupe['libelle']?></option>
-																<?php endforeach ; ?>
+															
+															 <option value='1'>Admin</option>
+																
 													 </select>
 												 </div>
 										 </div>

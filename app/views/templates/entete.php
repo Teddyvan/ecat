@@ -1,5 +1,3 @@
-<?php if(empty($_SESSION['ecatCon']))
-		header('location : index.php?p=Utilisateur/login') ;?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +12,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <!-- jquery ui-->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?=SERVER?>/dist/css/AdminLTE.css">

@@ -21,7 +21,7 @@
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<table id="technique" class="table table-hover table-bordered table-striped">
+				<table id="technique_list" class="table table-hover table-bordered table-striped">
 					<thead>
 					<tr>
 						<th>Identifiant</th>
@@ -108,12 +108,19 @@
 												 <div class="col-md-6">
 														 <input id="contact_phone" type="tel" required="true" name="contact_phone" placeholder="Contact phone" class="form-control required ">
 												 </div>
-										 </div> <div class="form-group">
+										 </div> 
+										 <div class="form-group">
 												 <label class="col-md-3 control-label">Contact Email <span class="required">*</span></label>
 												 <div class="col-md-6">
 														 <input id="contact_email" type="email" required="true" name="contact_email" placeholder="Contact Email" class="form-control required ">
 												 </div>
 										 </div>
+										 <div class="form-group">
+												 <label class="col-md-3 control-label">Logo <span class="required">*</span></label>
+												 <div class="col-md-6">
+														 <input id="photo" type="file" name="photo" class="form-control" accept="image/*">
+												 </div>
+										 </div> 
 									<div class="box-footer">
 											<button id="Updtannuler" type="reset" class="btn btn-warning pull-right">Annuler</button>
 											<button type="submit" id="updSubmit" name="addtechnique" class="btn btn-primary pull-right">Enregistrer</button>
@@ -131,15 +138,124 @@
 	</div>
 	<!-- /.col -->
 </div>
+
 		<div class="col-md-3">
-			  <div id="retour" style="padding-top:300px;text-align : center;margin:auto"></div>       
-		</div>
+                      <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Evenement</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+					<div id="evts" class="demo"></div>
+                        
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
+					 <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Ressource documentaire</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+					<div id="evts" class="demo"></div>
+                        
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
+					 <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Boite a outils</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+					<div id="evts" class="demo"></div>
+                        
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
+					  <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Partenaires du PRF</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+						  
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+						<div id="evts" class="demo"></div>
+                       <img style="text-align:center;height:200px;width:200px" src="<?=SERVER?>/dist/img/partenaires_prf.jpg" alt="logo ecat" />
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
+					 <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Organisation porteuse</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+					<div id="evts" class="demo"></div>
+							 <img style="align:center" src="<?=SERVER?>/dist/img/logo_rame.jpg" alt="logo ecat" />
+
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
+	  </div>
+</div>
+
 		<!-- BOITE MODEL-->
 	<?php include_once("modal/updatetechnique.php"); ?>
 		<!-- FIN BOITE MODEL-->
 <!-- /.row -->
-<script src="<?=SERVER?>/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="<?=SERVER?>/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="<?=SERVER?>/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?=SERVER?>/plugins/datatables/dataTables.bootstrap.min.js"></script> 
 <script src="<?=SERVER?>/dist/js/script/technique.js"></script> 
 

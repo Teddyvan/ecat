@@ -30,7 +30,7 @@ class Service extends \Core\Database\Database
     {
 		try
 		{
-			$sql = "select p.country as pays_name,d.designation as domaine,o.offer_designation as offre,o.date_ouverture as ouverture ,o.date_fermeture as fermeture 
+			$sql = "select o.id as id,p.country as pays_name,d.designation as domaine,o.offer_designation as offre,o.date_ouverture as ouverture ,o.date_fermeture as fermeture 
 					from ecat_assistance_technique_offre o
 						INNER JOIN ecat_assistance_technique a 
 							on a.id = o.assistant
@@ -38,7 +38,7 @@ class Service extends \Core\Database\Database
 							on d.id = o.domaine
 						INNER JOIN ecat_pays p
 							on p.id = o.country_concerne
-					ORDER BY o.id desc limit 5" ;
+					ORDER BY o.id desc limit 3" ;
 			$requete = $this->getPDO()->prepare($sql);
 			$requete->execute();
 			return $requete->fetchAll(\PDO::FETCH_ASSOC);

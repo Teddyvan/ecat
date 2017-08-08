@@ -211,10 +211,7 @@ class ThemeController extends AppController
 			$i = 0 ;
 			foreach($themes as $theme)
 			{
-					// $this->echoTest($ligne);
-					// $this->echoTest($r_tmp);
-				// $this->echoTest($theme);
-				if($ligne["idDomaine"] != $theme['idDomaine'])
+				if($ligne["designation"] != $theme['designation'])
 				{
 					$i++ ;
 					$r_tmp[$i]['domaine'] = $theme ;
@@ -225,8 +222,6 @@ class ThemeController extends AppController
 				}
 				$ligne = $theme;
 			}
-			
-			// $this->echoTest($r_tmp);
 			$this->render("theme.parametre",compact("r_tmp",'$themes'));
 		}
 		else
@@ -254,8 +249,6 @@ class ThemeController extends AppController
 			$j = 0 ;
 			//recuperer les parametres
 			$params = $this->Param->getAllParam();
-			
-			//pour le form d'auto-evaluation
 			$themePourAutoEvaluation = array();
 			foreach($params as $param)
 			{
@@ -276,7 +269,6 @@ class ThemeController extends AppController
 				}
 			}
 			
-			//pour l'affichage des result
 			foreach($themePourAutoEvaluation as $theme)
 			{
 				if($ligne["designation"] != $theme['designation'])
@@ -294,6 +286,19 @@ class ThemeController extends AppController
 			$evaluations = $this->Evaluation->getRecaptEvaluation($infosConnexion['assoc_id']);
 			
 			// $this->echoTest($evaluations);
+			foreach($evaluations as $evaluation)
+			{
+				if($ligne["designation"] != $theme['designation'])
+				{
+					$i++ ;
+					$r_tmp[$i]['domaine'] = $theme ;
+				}
+				else
+				{
+					$r_tmp[$i][] = $theme ;
+				}
+				$ligne = $theme;
+			}
 			//recuperer la liste des evaluations
 			// $evaluations = $this->Trace->getAllEvalByAssoc($infosConnexion['assoc_id']) ;
 			$this->render("evaluation.index",compact("evaluations","domaines","r_tmp"));

@@ -3,7 +3,6 @@ namespace Core\Database;
 use \PDO ;
 /**
  * CLass fournissant l'acces a la base de données.
- *@author Ivan Bessin
  */
 class Database
 {
@@ -128,7 +127,7 @@ class Database
 																		VALUES (".$Tobject['markers'].")");
             $this->PDOBindParam($requete,$Tobject['values'],$Tobject['types']);
             $etat = $requete->execute();
-            return $this->getPDO()->lastInsertId();
+            return $etat;
         }
         catch(\PDOException $e)
         {

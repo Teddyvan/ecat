@@ -9,9 +9,8 @@
 	<div class="col-md-9">
 		<div class="nav-tabs-custom">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#activity" data-toggle="tab"> <i class="fa fa-domaine"></i>  domaine</a></li>
-				 <li><a href="#settings" data-toggle="tab"><i class="fa fa-domaine-plus"></i> Nouveau domaine</a></li>
-			<!--	<li><a href="#profile" data-toggle="tab"><i class="fa fa-domaine-plus"></i> Mon profile</a></li> -->
+				<li class="active"><a href="#activity" data-toggle="tab"> <i class="fa fa-assocations"></i>  Domaine</a></li>
+				 <li><a href="#settings" data-toggle="tab"><i class="fa fa-Pays-plus"></i> Nouveau Domaine</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="active tab-pane" id="activity">
@@ -21,7 +20,7 @@
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<table id="domaine" class="table table-hover table-bordered table-striped">
+				<table id="domaine_list" class="table table-hover table-bordered table-striped">
 					<thead>
 					<tr>
 						<th>Code</th>
@@ -37,11 +36,9 @@
 						<td><?=$domaine['designation']?></td>
 					
 						<td>
-						<button class="seeDomaine" title="Voir details du domaine" value="<?=$domaine['id']?>"> <i class="fa fa-eye"></i> </button>&nbsp;&nbsp;
-							<button class="updDomaine" title="Modifier le domaine" value="<?=$domaine['id']?>"> <i class="fa fa-pencil"></i> </button>&nbsp;&nbsp;
-							<button type="button" value="<?=$domaine['id']?>" class="delDomaine" title="Supprimer le domaine" ><i class="fa fa-trash"></i> </button>&nbsp;&nbsp;
-
-				
+						<button class="seeDomaine" title="Voir details du domaine" value="<?=$domaine['id']?>"> <i class="fa fa-eye"></i> </button>&nbsp;
+							<button class="updDomaine" title="Modifier le domaine" value="<?=$domaine['id']?>"> <i class="fa fa-pencil"></i> </button>&nbsp;
+							<button type="button" value="<?=$domaine['id']?>" class="delDomaine" title="Supprimer le domaine" ><i class="fa fa-trash"></i> </button>&nbsp;
 						</td>
 					</tr>
 					<?php endforeach;?>
@@ -50,9 +47,9 @@
 					</tbody>
 					<tfoot>
 					<tr>
-					<th>Code</th>
-					<th>Intitule domaine</th>
-					<th>Actions</th>
+						<th>Code</th>
+						<th>Intitule domaine</th>
+						<th>Actions</th>
 					</tr>
 					</tfoot>
 				</table>
@@ -98,9 +95,118 @@
 	</div>
 	<!-- /.col -->
 </div>
+
 		<div class="col-md-3">
-			  <div id="retour" style="padding-top:300px;text-align : center;margin:auto"></div>       
-		</div>
+                      <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Evenement</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+					<div id="evts" class="demo"></div>
+                        
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
+					 <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Domaine documentaire</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+					<div id="evts" class="demo"></div>
+                        
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
+					 <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Boite a outils</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+					<div id="evts" class="demo"></div>
+                        
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
+					  <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Partenaires du PRF</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+						  
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+						<div id="evts" class="demo"></div>
+                       <img style="text-align:center;height:200px;width:200px" src="<?=SERVER?>/dist/img/partenaires_prf.jpg" alt="logo ecat" />
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
+					 <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Organisation porteuse</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+					<div id="evts" class="demo"></div>
+							 <img style="align:center" src="<?=SERVER?>/dist/img/logo_rame.jpg" alt="logo ecat" />
+
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
+	  </div>
+</div>
+
 		<!-- BOITE MODEL-->
 	<?php include_once("modal/updateDomaine.php"); ?>
 		<!-- FIN BOITE MODEL-->

@@ -9,39 +9,37 @@
 	<div class="col-md-9">
 		<div class="nav-tabs-custom">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#activity" data-toggle="tab"> <i class="fa fa-assocations"></i>  Liste des offres de service</a></li>
-				 <li><a href="#settings" data-toggle="tab"><i class="fa fa-groupe-plus"></i> Nouvelle Offre de service</a></li>
-			<!--	<li><a href="#profile" data-toggle="tab"><i class="fa fa-groupe-plus"></i> Mon profile</a></li> -->
+				<li class="active"><a href="#activity" data-toggle="tab"> <i class="fa fa-assocations"></i>  Pays</a></li>
+				 <li><a href="#settings" data-toggle="tab"><i class="fa fa-Pays-plus"></i> Nouveau Pays</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="active tab-pane" id="activity">
 				 <div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Liste des Service</h3>
+				<h3 class="box-title">Liste des Pays</h3>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<table id="assocations" class="table table-hover table-bordered table-striped">
+				<table id="pays" class="table table-hover table-bordered table-striped">
 					<thead>
 					<tr>
-						<th>Libelle(s)</th>
-						<th>Etat</th>
+						<th>Pays</th>
+						<th>Abreviation</th>
 						<th>Actions</th>
 					</tr>
 					</thead>
 					<tbody>
-								<?php if(!empty($assocations)) :?>
-									<?php foreach($assocations as $groupe ):?>
+								<?php if(!empty($pays)) :?>
+									<?php foreach($pays as $pay ):?>
 					<tr>
-						<td><?=$groupe['libelle']?></td>
-						<td><?=$groupe['etat']?></td>
+						<td><?=$pay['country']?></td>
+						<td><?=$pay['abreviation']?></td>
 					
 						<td>
-						<button class="seeGroupe" title="Voir details du groupe" value="<?=$groupe['id']?>"> <i class="fa fa-eye"></i> </button>&nbsp;&nbsp;
-							<button class="updGroupe" title="Modifier le gorupe" value="<?=$groupe['id']?>"> <i class="fa fa-pencil"></i> </button>&nbsp;&nbsp;
-							<button type="button" value="<?=$groupe['id']?>" class="delGroupe" title="Supprimer le groupe" ><i class="fa fa-trash"></i> </button>&nbsp;&nbsp;
-							<!--<button class="chngPass" title="reinitialiser le mot de passe" value="<?=$groupe['id']?>"> <i class="fa fa-refresh"></i> </button>&nbsp;&nbsp; -->
-				
+						<button class="seePays" title="Voir details du pays" value="<?=$pay['id']?>"> <i class="fa fa-eye"></i> </button>&nbsp;&nbsp;
+							<button class="updPays" title="Modifier le pays" value="<?=$pay['id']?>"> <i class="fa fa-pencil"></i> </button>&nbsp;&nbsp;
+							<button type="button" value="<?=$pay['id']?>" class="delPays" title="Supprimer le pays" ><i class="fa fa-trash"></i> </button>&nbsp;&nbsp;
+
 						</td>
 					</tr>
 					<?php endforeach;?>
@@ -50,8 +48,8 @@
 					</tbody>
 					<tfoot>
 					<tr>
-						<th>Libelle(s)</th>
-						<th>Etat</th>
+						<th>Pays</th>
+						<th>Abreviation</th>
 						<th>Actions</th>
 					</tr>
 					</tfoot>
@@ -66,86 +64,24 @@
 				 <div class="box-body">
 						 <form id="form" class="form-horizontal" enctype="multipart/form-data">
 								 <fieldset>
-										 <legend>Ajout d'une Offre de service</legend>
+										 <legend>Ajout d'un Pays</legend>
 										  <div class="form-group">
-											<label class="col-md-3 control-label">Structure <span class="required">*</span></label>
-											<div class="col-md-6">
-											  <select required="true" id="natTitre" name='natTitre' class="form-control">
-												<!--<option value="">Choissisez l'agence</option>-->
-												<option value='-1'>Selectionnez une option</option>
-										
-											  </select>
-											</div>
-										  </div>
-										  <div class="form-group">
-											<label class="col-md-3 control-label">Domaine(s) <span class="required">*</span></label>
-											<div class="col-md-6">
-											  <select required="true" id="natTitre" name='natTitre' class="form-control">
-												<!--<option value="">Choissisez l'agence</option>-->
-												<option value='-1'>Selectionnez un domaine</option>
-										
-											  </select>
-											</div>
-										  </div>
-										   <div class="form-group">
-											<label class="col-md-3 control-label">Probleme identifie <span class="required">*</span></label>
-											<div class="col-md-6">
-											<textarea class="form-control " id="" rows="3" placeholder="Probleme identifie"></textarea>
-											</div>
-										  </div> 
-										  <div class="form-group">
-											<label class="col-md-3 control-label">Intitule offre <span class="required">*</span></label>
-											<div class="col-md-6">
-											<textarea class="form-control " id="Insuffisance releve" rows="3" placeholder="Intitule offre"></textarea>
-											</div>
-										  </div> 
-										   <div class="form-group">
-											<label class="col-md-3 control-label">Pays concerne <span class="required">*</span></label>
-											<div class="col-md-6">
-											  <select required="true" id="natTitre" name='natTitre' class="form-control">
-												<!--<option value="">Choissisez l'agence</option>-->
-												<option value='-1'>Selectionnez un pays</option>
-										
-											  </select>
-											</div>
-										  </div>
+									
 										 <div class="form-group">
-												 <label class="col-md-3 control-label">Ouverture <span class="required">*</span></label>
+												 <label class="col-md-3 control-label">Pays <span class="required">*</span></label>
 												 <div class="col-md-6">
-														 <input id="libelle" type="date" required="true" name="ouverture" placeholder="Ouverture" class="form-control required ">
+														 <input id="country" type="text" required="true" name="country" placeholder="Nom du Pays" class="form-control required ">
+												 </div>
+										 </div> 
+										 <div class="form-group">
+												 <label class="col-md-3 control-label">Abreviation <span class="required">*</span></label>
+												 <div class="col-md-6">
+														 <input id="abreviation" type="text" required="true" name="abreviation" placeholder="Abreviation de l'Pays" class="form-control required ">
 												 </div>
 										 </div>
-										  <div class="form-group">
-												 <label class="col-md-3 control-label">Cloture <span class="required">*</span></label>
-												 <div class="col-md-6">
-														 <input id="libelle" type="date" required="true" name="abreviation" placeholder="Cloture" class="form-control required ">
-												 </div>
-										 </div>
-										  <div class="form-group">
-											<label class="col-md-3 control-label">Regularite de l'offre  <span class="required">*</span></label>
-											<div class="col-md-6">
-											  <select required="true" id="natTitre" name='natTitre' class="form-control">
-												<!--<option value="">Choissisez l'agence</option>-->
-												<option value='1'>Journalier</option>
-												<option value='2'>Hebdomadaire</option>
-												<option value='2'>Mensuelle</option>
-												<option value='3'>Trimestrielle</option>
-												<option value='4'>Annuelle</option>
-										
-											  </select>
-											</div>
-										  </div>
-										  	 <div class="form-group">
-												 <label class="col-md-3 control-label">Formulaire a telecharger <span class="required">*</span></label>
-												 <div class="col-md-6">
-														 <input id="photo" type="file" required="true" name="photo" class="form-control required ">
-												 </div>
-										 </div>
-										
-										
 									 <div class="box-footer">
-											<button id="annuler" type="reset" class="btn btn-warning pull-right">Annuler</button>
-											<button type="submit" name="addgroupe" class="btn btn-primary pull-right">Enregistrer</button>
+											<button id="updannuler" type="reset" class="btn btn-warning pull-right">Annuler</button>
+											<button type="submit" id="updSubmit" name="addpay" class="btn btn-primary pull-right">Enregistrer</button>
 										 </div>
 								 </fieldset>
 						 </form>
@@ -168,6 +104,7 @@
 	</div>
 	<!-- /.col -->
 </div>
+
 		<div class="col-md-3">
                       <div class="box box-warning">
                       <div class="box-header with-border">
@@ -232,15 +169,59 @@
 
                        <!-- /.box-body -->
                      </div>
+					  <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Partenaires du PRF</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+						  
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+						<div id="evts" class="demo"></div>
+                       <img style="text-align:center;height:200px;width:200px" src="<?=SERVER?>/dist/img/partenaires_prf.jpg" alt="logo ecat" />
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
+					 <div class="box box-warning">
+                      <div class="box-header with-border">
+                         <h3 class="box-title">Organisation porteuse</h3>
+
+                         <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                           </button>
+                         </div>
+                         <!-- /.box-tools -->
+                       </div>
+                       <!-- /.box-header -->
+
+                       <div class="box-body">
+                         <section class="sidebar">
+					<div id="evts" class="demo"></div>
+							 <img style="align:center" src="<?=SERVER?>/dist/img/logo_rame.jpg" alt="logo ecat" />
+
+                       </section>
+                       </div>
+
+                       <!-- /.box-body -->
+                     </div>
 	  </div>
-		</div>
-		
+</div>
+
 		<!-- BOITE MODEL-->
 	<?php include_once("modal/updatePays.php"); ?>
 		<!-- FIN BOITE MODEL-->
 <!-- /.row -->
-<script src="<?=SERVER?>/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="<?=SERVER?>/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="<?=SERVER?>/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?=SERVER?>/plugins/datatables/dataTables.bootstrap.min.js"></script> 
-<script src="<?=SERVER?>/dist/js/script/service.js"></script> 
+<script src="<?=SERVER?>/dist/js/script/pays.js"></script> 
 

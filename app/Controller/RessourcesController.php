@@ -156,6 +156,62 @@ class RessourcesController extends AppController
         }
         else
 			$this->redirect("Ressource/login");
+	}	
+	
+	public function supprimer()
+	{
+		if($this->existSession("ecatCon"))
+        {
+			$Ressource =  $this->post();
+			$infosConnexion = $this->getSession("ecatCon") ;
+			$result = array();
+			//afficher le profil de la personne connecté
+			if($infosConnexion['type'] == RAN)
+				$result = $this->Ressource->getRessource($Ressource['id']);
+			if($infosConnexion['type'] == ASSOC)
+				$result = $this->Ressource->getRessource($Ressource['id']);
+			if($infosConnexion['type'] == ASSISTANT)
+				$result = $this->Ressource->getRessource($Ressource['id']);
+						
+			if($result)
+			{
+				$etat = 0 ;
+				if($infosConnexion['type'] == RAN)
+					$etat =  $this->Ressource->deleteRessourceRam($Ressource['id']); 	
+				if($infosConnexion['type'] == ASSOC)
+					$etat =  $this->Ressource->deleteRessourceAssoc($Ressource['id']); 
+				if($infosConnexion['type'] == ASSISTANT)
+					$etat =  $this->Ressource->deleteRessourceTech($Ressource['id']); 
+								
+				if($etat > 0)
+				{
+					if(!empty($result['fichier1']))
+						unlink($result['fichier1']);
+					if(!empty($result['fichier2']))
+						unlink($result['fichier2']);
+					if(!empty($result['fichier3']))
+						unlink($result['fichier3']);
+						
+					$success = $this->setAlertSuccess("Ressource supprimé avec success");
+					$array = array("msg"=>$success,"erreur"=>0) ;
+				}
+				else
+				{
+					$success = $this->setAlertWarning("Une erreur est survenu pendant la suppression.Veuillez ressayer svp !");
+					$array = array("msg"=>$success,"erreur"=>1) ;
+				}
+			}
+			else
+			{
+				$success = $this->setAlertWarning("Une erreur est survenu veuillez ressayer svp !");
+				$array = array("msg"=>$success,"erreur"=>1) ;
+			}				
+			$j = json_encode($array);
+			echo $j ;
+			die();
+        }
+        else
+			$this->redirect("Utilisateur/login");
 	}
 	
 	public function index($array = null)

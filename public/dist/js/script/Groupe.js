@@ -1,6 +1,16 @@
 	$(function(){
 		//le datatable
-	//$('#example1').DataTable();
+		$("#groupe_list").DataTable({
+       "paging": true,
+       "lengthChange": true,
+       "searching": true,
+       "ordering": true,
+       "info": true,
+       "autoWidth": false,
+ 			"language": {
+ 					 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+ 				 }
+     });
 
 		$("#annuler").click(effacer_formulaire);
 		$("#Updtannuler").click(effacer_formulaire);

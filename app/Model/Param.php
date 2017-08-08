@@ -32,8 +32,7 @@ class Param extends \Core\Database\Database
 	{
 		try
 		{
-		
-				return $this->add($Param);
+			return $this->add($Param);
 		}
 		catch(Exception $e)
 		{

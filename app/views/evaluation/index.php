@@ -9,35 +9,31 @@
 	<div class="col-md-12">
 		<div class="nav-tabs-custom">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#activity" data-toggle="tab"> <i class="fa fa-assocations"></i> Appel a projet </a></li>
-				 <li><a href="#settings" data-toggle="tab"><i class="fa fa-Evaluation-plus"></i> Nouveau Evaluation </a></li>
+				<li class="active"><a href="#activity" data-toggle="tab"> <i class="fa fa-assocations"></i> Liste des évaluations </a></li>
+				 <li><a href="#settings" data-toggle="tab"><i class="fa fa-Evaluation-plus"></i> Nouvelle Evaluation </a></li>
 			<!--	<li><a href="#profile" data-toggle="tab"><i class="fa fa-Evaluation-plus"></i> Mon profile</a></li> -->
 			</ul>
 			<div class="tab-content">
 				<div class="active tab-pane" id="activity">
 				 <div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Liste des Evaluation association</h3>
+				<h3 class="box-title">Liste des Evaluation </h3>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<table id="evaluation_list" class="table table-hover table-bordered table-striped">
+				<table id="assocations" class="table table-hover table-bordered table-striped">
 					<thead>
 					<tr>
-						<th>Total</th>
-						<th>Date</th>
+						<th>date</th>
 						<th>Domaine</th>
-						<th>Theme</th>
-						<th>Libelle</th>
 						<th>note</th>
 						
 					</tr>
 					</thead>
 					<tbody>
-								<?php if(!empty($evaluations)) :?>
-									<?php foreach($evaluations as $Evaluation ):?>
+								<?php if(!empty($evaluation)) :?>
+									<?php foreach($evaluation as $Evaluation ):?>
 					<tr>
-					<td></td>
 						<td><?=$Evaluation['date']?></td>
 						<td><?=$Evaluation['designation']?></td>
 						<td><?=$Evaluation['note_moyenne']?></td>
@@ -55,10 +51,8 @@
 					</tbody>
 					<tfoot>
 					<tr>
-						<th>Total</th>
+						<th>date</th>
 						<th>Domaine</th>
-						<th>Theme</th>
-						<th>Libelle</th>
 						<th>note</th>
 					</tr>
 					</tfoot>
@@ -169,20 +163,7 @@
 <script type="text/javascript" >
 $(function()
 {
-	
-	//datatables
-	$("#evaluation_list").DataTable({
-       "paging": true,
-       "lengthChange": true,
-       "searching": true,
-       "ordering": true,
-       "info": true,
-       "autoWidth": false,
- 			"language": {
- 					 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
- 				 }
-     });
-	/*GESTION evaluation des themes*/
+	/*GESTION PARAMETRAGE des themes*/
 $("#evaluation").submit(function(e){
 	e.preventDefault(); // Le navigateur ne peut pas envoyer le formulaire
 	//verification primaire

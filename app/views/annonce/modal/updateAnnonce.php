@@ -69,5 +69,8 @@
 
               <!--  /.modal-content -->
           </div>
+          </div>
+          </div>
+          </div>
           <!-- /.modal-dialog -->
-        </div>
+       

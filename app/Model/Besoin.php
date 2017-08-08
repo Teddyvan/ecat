@@ -32,7 +32,7 @@ class Besoin extends \Core\Database\Database
     {
 		try
 		{
-			$sql = "select  d.designation as domaine,b.insuffisance_releve as insuff,b.designation as besoin_designation
+			$sql = "select b.id as id, d.designation as domaine,b.insuffisance_releve as insuff,b.designation as besoin_designation
 					from ecat_association a 
 						INNER JOIN  ecat_association_besoin b 
 							on a.id = b.association_concerne

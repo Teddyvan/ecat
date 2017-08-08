@@ -20,6 +20,7 @@ class UtilisateurController extends AppController
 		$this->loadModel("Utilisateur");
 		$this->loadModel("Association");
 		$this->loadModel("Technique");
+		$this->loadModel("Pays");
 		$this->loadModel("Groupe");
 	}
 
@@ -41,6 +42,69 @@ class UtilisateurController extends AppController
 			}
 			else
 			{ 
+				$taille_max = 20000;
+				//enregistrer la photo
+				$etatphoto = false ;
+				//recuperation des extension autorise
+				$extensions_valides = array( 'jpg','png' , 'jpeg' );
+				//recuperation de l'extension du fichier
+				$extension_upload = strtolower(  substr(  strrchr($_FILES['photo']['name'], '.')  ,1)  );
+				//repertoire ou sera stocké la photo
+				$chemin = APP_UPLOAD_PATH_IMG.$user['login'] .'.'.$extension_upload;
+				$user['photo'] = $chemin ;
+				
+				if ($_FILES["photo"]["error"] == 0)
+                {
+					if(filesize($_FILES['photo']['tmp_name']) <= $taille_max)
+					{
+						if(in_array($extension_upload,$extensions_valides))
+						{
+							//repertoire ou sera stocké la photo
+
+							if (move_uploaded_file($_FILES['photo']['tmp_name'], $chemin))
+							{
+								
+							}
+							else
+							{
+								$success = $this->setAlertDanger("erreur de deplacement ");
+								$array = array("msg"=>$success,"erreur"=>0) ;
+								$j = json_encode($array);
+								echo $j ;
+								die();
+							}
+						}
+						else
+						{
+							//extendion non valide
+							$success = $this->setAlertDanger("extension non valide ");
+							$array = array("msg"=>$success,"erreur"=>0) ;
+							$j = json_encode($array);
+							echo $j ;
+							die();
+						}
+					}
+					else
+					{
+						$success = $this->setAlertDanger("Le fichier est trop volumineux");
+						$array = array("msg"=>$success,"erreur"=>0) ;
+						$j = json_encode($array);
+						echo $j ;
+						die();
+					}
+			
+				}
+				else
+				{
+					//une erreur est survenue
+					$msg = "une erreur est survenue code erreur :".$_FILES["photo"]["error"] ;
+					$success = $this->setAlertDanger($msg);
+					$array = array("msg"=>$success,"erreur"=>0,"data"=>$user) ;
+					$j = json_encode($array);
+					echo $j ;
+					die();
+				}
+				
 				
 				$etat = $this->Utilisateur->addUser($user);
 				if($etat)
@@ -153,7 +217,14 @@ class UtilisateurController extends AppController
 		 if($this->existSession("ecatCon"))
         {            
 			//recuperer la liste des utilisateurs
-			$utilisateurs = $this->Utilisateur->getAllUser();
+			$utilisateurs = array();
+			$users = $this->Utilisateur->getAllUser();
+			foreach($users as $user)
+			{
+				$groupes = $this->Groupe->getGroupe($user['idGroupe']);
+				$user['groupe'] = $groupes['libelle'];
+				$utilisateurs[] = $user ;
+			}
 			//recuperer la liste des groupes
 			$groupes =  $this->Groupe->getAllGroupe();
             $this->render("utilisateurs.index",compact("utilisateurs","groupes"));
@@ -171,7 +242,6 @@ class UtilisateurController extends AppController
 			$validator = new Validators($user);
 			$validator->check('login', 'required',"Identifiant");
 			$validator->check('mdp',   'required','mot de passe');
-			$validator->check('profil',   'required','Profile');
 			$erreur = array();
 			$erreur = $validator->errors();
 			sleep(1);
@@ -183,10 +253,10 @@ class UtilisateurController extends AppController
 				 2 => ASSOCIATION
 				 3 => ASSISTANT TECHNIQUE
 				*/
-				if($user['profil'] == RAN)
-				{
+				
 					$result = $this->Utilisateur->connexion($user);
-					if($result){
+					if(!empty($result))
+					{
 						$infoCon = array("img_profile"=>$this->getPhotoProfile($result['login']),
 									"nom"=>$result['nom'] .' '.$result['prenom'],
 									"user_id"=>$result['id'],
@@ -194,58 +264,70 @@ class UtilisateurController extends AppController
 									"type"=>RAN,
 									"login"=>$result['login']
 									) ;
+						$this->setSession("ecatCon",$infoCon);
+						$success = $this->setAlertSuccess("Authentification ok");
+						$arr = array("msg"=>$success,"erreur"=>0,"lien"=>"index.php?p=Bord/index") ;
+						$j = json_encode($arr);
+						echo $j ;
+						die();
 					}
-				}
-				if($user['profil'] == ASSOC)
-				{
-					$result = $this->Association->connexion($user);
-					if($result){
-						$infoCon = array(
+					else
+					{
+						$result = $this->Association->connexion($user);
+						if(!empty($result))
+						{
+							$infoCon = array(
 									"img_profile"=>$this->getPhotoProfile($result['login']),
 									"nom"=>$result['abreviation'],
 									"assoc_id"=>$result['id'],
 									"type"=>ASSOC,
 									"login"=>$result['login']
 									) ;
+							$this->setSession("ecatCon",$infoCon);
+							$success = $this->setAlertSuccess("Authentification ok");
+							$arr = array("msg"=>$success,"erreur"=>0,"lien"=>"index.php?p=Bord/index") ;
+							$j = json_encode($arr);
+							echo $j ;
+							die();
+						}
+						else
+						{
+							$result = $this->Technique->connexion($user);
+							if(!empty($result))
+							{
+									$infoCon = array(
+											"img_profile"=>$this->getPhotoProfile($result['login']),
+											"nom"=>$result['abreviation_at'],
+											"assistant_id"=>$result['id'],
+											"type"=>ASSISTANT,
+											"login"=>$result['login']
+											) ;
+								$this->setSession("ecatCon",$infoCon);
+								$success = $this->setAlertSuccess("Authentification ok");
+								$arr = array("msg"=>$success,"erreur"=>0,"lien"=>"index.php?p=Bord/index") ;
+								$j = json_encode($arr);
+								echo $j ;
+								die();
+							}
+							else
+							{
+								$erreur = $this->setAlertWarning("Identifiant / mot de passe incorrect");
+								$arr = array("msg"=>$erreur,"erreur"=>1);
+								$j = json_encode($arr);
+								echo $j ;
+								die();
+							}
+						}
 					}
-				}
-				if($user['profil'] == ASSISTANT)
-				{
-					$result = $this->Technique->connexion($user);
-					if($result){
-						$infoCon = array(
-									"img_profile"=>$this->getPhotoProfile($result['login']),
-									"nom"=>$result['abreviation_at'],
-									"assistant_id"=>$result['id'],
-									"type"=>ASSISTANT,
-									"login"=>$result['login']
-									) ;
-					}
-				}
-					
-				// $this->echoTest($result);		
-				if(!empty($result))
-				{
-					
-					$this->setSession("ecatCon",$infoCon);
-					$success = $this->setAlertSuccess("Authentification ok");
-					$arr = array("msg"=>$success,"erreur"=>0,"lien"=>"index.php?p=Bord/index") ;
-				}
-				else
-				{
-					$erreur = $this->setAlertWarning("Identifiant / mot de passe incorrect");
-					$arr = array("msg"=>$erreur,"erreur"=>1);
-				}
 			}
 			else
 			{
-				//il ya erreur
 				$erreur = $this->setAlertDanger(implode('<br>', $erreur));
-				$arr = array("msg"=>$erreur,"erreur"=>1);
+				$arr = array("msg"=>$erreur,"erreur"=>1,"data"=>$user) ;
+				$j = json_encode($arr);
+				echo $j ;
+				die();
 			}
-			
-			$j = json_encode($arr);
-			echo $j ;
 	}
 	
 	/**
@@ -279,8 +361,9 @@ class UtilisateurController extends AppController
         else
         {
             //la variable n'existe pas il n'est pas connecté
+			$pays = $this->Pays->getAllPays();
             $this->template = 'connexion' ;
-            $this->render("utilisateurs.login");
+            $this->render("utilisateurs.login",compact('pays'));
         }
 	}
 	

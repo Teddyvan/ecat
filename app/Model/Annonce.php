@@ -27,19 +27,6 @@ class Annonce extends \Core\Database\Database
 		}
     }
 	
-	//retourne les infos de l'utilisateur d'id id en param
-	public function getAllAnnonceById($id)
-	{
-		try
-		{
-			return $this->findAllByField(array('name'=>'created_by','value'=>$id));
-		}
-		catch(Exception $e)
-		{
-			echo $e->getMessage();
-		}
-	}
-	
 	//ajout un nouvel utilisateur
 	public function addAnnonce($Annonce)
 	{

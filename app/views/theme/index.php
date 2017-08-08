@@ -21,7 +21,7 @@
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<table id="Theme" class="table table-hover table-bordered table-striped">
+				<table id="theme_list" class="table table-hover table-bordered table-striped">
 					<thead>
 					<tr>
 						<th>Domaine</th>
@@ -118,15 +118,15 @@
 	</div>
 	<!-- /.col -->
 </div>
-		<div class="col-md-3">
-			  <div id="retour" style="padding-top:300px;text-align : center;margin:auto"></div>       
-		</div>
+
+</div>
+
 		<!-- BOITE MODEL-->
 	<?php include_once("modal/updateTheme.php"); ?>
 		<!-- FIN BOITE MODEL-->
 <!-- /.row -->
-<script src="<?=SERVER?>/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="<?=SERVER?>/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="<?=SERVER?>/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?=SERVER?>/plugins/datatables/dataTables.bootstrap.min.js"></script> 
 <script src="<?=SERVER?>/dist/js/script/theme.js"></script> 
 

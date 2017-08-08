@@ -23,6 +23,7 @@ class BordController extends AppController
 		$this->loadModel("Besoin");
 		$this->loadModel("Ressource");
 		$this->loadModel("Annonce");
+		$this->loadModel("Pays");
 		
 	}
 	
@@ -47,6 +48,7 @@ class BordController extends AppController
 				$type = ASSOC ;
 				//recuperer les offres
 				$offres = $this->Service->getToutService();
+				// $this->echoTest($offres);
 			}
 			if($infosConnexion['type'] == ASSISTANT)
 			{
@@ -55,9 +57,12 @@ class BordController extends AppController
 				$besoins = $this->Besoin->getToutBesoin();
 			}
 			
-			//recuperer les documents soumis par l'admin
-			
-            $this->render("bord.index",compact("type","besoins","offres"));
+			//recuperer les annonce
+			$annonces = $this->Annonce->getAllAnnonce();
+			$domaines = $this->Domaine->getAllDomaine();
+			$pays = $this->Pays->getAllPays();
+			// $this->echoTest($offres);
+            $this->render("bord.index",compact("type","besoins","offres",'annonces','domaines','pays'));
         }
         else
 			$this->redirect("Utilisateur/login");		

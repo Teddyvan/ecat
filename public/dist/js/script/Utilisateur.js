@@ -1,17 +1,16 @@
 	$(function(){
 		//le datatable
-		$('#users').DataTable({ 
-					"paging": true,
-					"lengthChange": true,
-					"searching": true,
-					"ordering": true,
-					"info": true,
-		      "autoWidth": false,
-					"language": {
-							 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
-						 }
-		    }) ;
-
+	 $("#users").DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+			"language": {
+					 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+				 }
+    });
 		$("#annuler").click(effacer_formulaire);
 		$("#Updtannuler").click(effacer_formulaire);
 		function effacer_formulaire () {
@@ -179,39 +178,42 @@
 });
 	//suppression d'un utilisateur
 	$(".delUser").click(function(){
-
-		var id = $(this).attr("value");
-		var donnees = {};
-		donnees.id = id ;
-		console.log(donnees);
-		//supprimer l'utilisateur
-		console.log("on supprime dans la BD");
-		$.ajax({
-			url: "index.php?p=Utilisateur/supprimer",
-			type: "POST",
-			data: donnees,
-			dataType: 'json',
-			success: function (data) {
-				if(data.erreur == 1)
-				{
-					//il ya une erreur
-					$("#retour").html(data.msg);
-				}else
-				{
-					//il ya pas d'erreur
-					$("#retour").html(data.msg);
+		if(confirm('Supprimer cet utilisateur'))
+		{
+			var id = $(this).attr("value");
+			var donnees = {};
+			donnees.id = id ;
+			console.log(donnees);
+			//supprimer l'utilisateur
+			console.log("on supprime dans la BD");
+			$.ajax({
+				url: "index.php?p=Utilisateur/supprimer",
+				type: "POST",
+				data: donnees,
+				dataType: 'json',
+				success: function (data) {
+					if(data.erreur == 1)
+					{
+						//il ya une erreur
+						$("#retour").html(data.msg);
+					}else
+					{
+						//il ya pas d'erreur
+						$("#retour").html(data.msg);
+					}
+				},
+				error: function (jqxr, status,erreur) {
+					console.log(jqxr.responseText+"<br />"+status);
 				}
-			},
-			error: function (jqxr, status,erreur) {
-				console.log(jqxr.responseText+"<br />"+status);
-			}
-		});
-		//supprimer la ligne
-		console.log("on supprime la ligne");
-		$(this).parent().parent().remove();
-		console.log("on recharge la page");
-		//bootbox.alert("suppression effectuer avec success");
-		//window.location.reload();
+			});
+			//supprimer la ligne
+			console.log("on supprime la ligne");
+			$(this).parent().parent().remove();
+			console.log("on recharge la page");
+			//bootbox.alert("suppression effectuer avec success");
+			//window.location.reload();
+		}
+
 	});
 
 	/**

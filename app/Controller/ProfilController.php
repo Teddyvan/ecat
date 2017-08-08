@@ -18,6 +18,7 @@ class ProfilController extends AppController
 		parent::__construct();
 		$this->loadModel("Association");
 		$this->loadModel("Utilisateur");
+		$this->loadModel("Pays");
 		$this->loadModel("Technique");
 	}
 
@@ -74,19 +75,23 @@ class ProfilController extends AppController
 	public function index($array = null)
 	{
 		 if($this->existSession("ecatCon"))
-        {            
+        {         
+			$pays = $this->Pays->getAllPays();
 			$infosConnexion = $this->getSession("ecatCon") ;
 			//afficher le profil de la personne connecté
+			$result = array();
 			if($infosConnexion['type'] == RAN)
 				{
 					$type = RAN ;
-					$result = $this->Utilisateur->getUser($infosConnexion['user_id']);
-					
+					$result = $this->Utilisateur->getUser($infosConnexion['user_id']);					
 				}
 				if($infosConnexion['type'] == ASSOC)
 				{
 					$type = ASSOC ;
 					$result = $this->Association->getAssociation($infosConnexion['assoc_id']);
+					$unPays = $this->Pays->getPays($result['pays_association']) ;
+					$result['pays_association'] = $unPays['id'];
+					$result['pays_name'] = $unPays['country'];
 					
 				}
 				if($infosConnexion['type'] == ASSISTANT)
@@ -96,7 +101,7 @@ class ProfilController extends AppController
 				}
 				// $this->echoTest($result);
 			
-            $this->render("profile.index",compact('type',"result"));
+            $this->render("profile.index",compact('type',"result",'pays'));
         }
         else
 			$this->redirect("Utilisateur/login");		

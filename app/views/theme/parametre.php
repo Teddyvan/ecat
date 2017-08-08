@@ -59,26 +59,18 @@
 					</tr>
 									<?php foreach($themes as $t ):?>
 					
-					<tr>
-					<td></td>
-						<td><?=$t['abreviation'];?>	</td>
-						<input type='hidden' name='idTheme[]' value='<?=$t['idTheme']?>' />
-						<input type='hidden' name='idDomaine[]' value='<?=$t["idDomaine"]?>' />
-						<td><input name="note[]" class=".note" /></td>
-						<td>
-							<select name="description[]" class=".desc">
-								<option>Oui</option><option>Non</option>
-							</select>
-						</td>
-						<td>
-						<select name="nbre_fichier[]" class=".fichier">
-							<option>0</option>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							</select>
-						</td>
+					<tr><td></td>
+					<td><?=$t['abreviation'];?>	</td>
+					<input type='hidden' name='idTheme[]' value='<?=$t['idTheme']?>' />
+					<input type='hidden' name='idDomaine[]' value='<?=$t["idDomaine"]?>' />
+					<td><input name="note[]" class=".note" /></td>
+					<td><select name="description[]" class=".desc"><option>Oui</option><option>Non</option></select></td>
+					<td><select name="nbre_fichier[]" class=".fichier">
+						<option>0</option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option></select></td>
 					</tr>
 					<?php endforeach;?>
 					<?php endforeach;?>
@@ -124,6 +116,14 @@
 <script type="text/javascript" >
 $(function()
 {
+	function effacer_formulaire () 
+	{
+			$(':input')
+			 .not(':button, :submit, :reset, :hidden')
+			 .val('')
+			 .prop('checked', false)
+			 .prop('selected', false);
+	}
 	/*GESTION PARAMETRAGE des themes*/
 $("#parametre").submit(function(e){
 	e.preventDefault(); // Le navigateur ne peut pas envoyer le formulaire

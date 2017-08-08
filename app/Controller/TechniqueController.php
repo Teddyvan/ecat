@@ -42,6 +42,69 @@ class TechniqueController extends AppController
 			}
 			else
 			{ 
+				$taille_max = 20000;
+				//enregistrer la photo
+				$etatphoto = false ;
+				//recuperation des extension autorise
+				$extensions_valides = array( 'jpg','png' , 'jpeg' );
+				//recuperation de l'extension du fichier
+				$extension_upload = strtolower(  substr(  strrchr($_FILES['photo']['name'], '.')  ,1)  );
+				//repertoire ou sera stocké la photo
+				$chemin = APP_UPLOAD_PATH_IMG.$Technique['login'] .'.'.$extension_upload;
+				$user['photo'] = $chemin ;
+				
+				if ($_FILES["photo"]["error"] == 0)
+                {
+					if(filesize($_FILES['photo']['tmp_name']) <= $taille_max)
+					{
+						if(in_array($extension_upload,$extensions_valides))
+						{
+							//repertoire ou sera stocké la photo
+
+							if (move_uploaded_file($_FILES['photo']['tmp_name'], $chemin))
+							{
+								
+							}
+							else
+							{
+								$success = $this->setAlertDanger("erreur de deplacement ");
+								$array = array("msg"=>$success,"erreur"=>0) ;
+								$j = json_encode($array);
+								echo $j ;
+								die();
+							}
+						}
+						else
+						{
+							//extendion non valide
+							$success = $this->setAlertDanger("extension non valide ");
+							$array = array("msg"=>$success,"erreur"=>0) ;
+							$j = json_encode($array);
+							echo $j ;
+							die();
+						}
+					}
+					else
+					{
+						$success = $this->setAlertDanger("Le fichier est trop volumineux");
+						$array = array("msg"=>$success,"erreur"=>0) ;
+						$j = json_encode($array);
+						echo $j ;
+						die();
+					}
+			
+				}
+				else
+				{
+					//une erreur est survenue
+					$msg = "une erreur est survenue code erreur :".$_FILES["photo"]["error"] ;
+					$success = $this->setAlertDanger($msg);
+					$array = array("msg"=>$success,"erreur"=>0) ;
+					$j = json_encode($array);
+					echo $j ;
+					die();
+				}
+				
 				$infosConnexion = $this->getSession("ecatCon") ;
 				$Technique['created_by']  = 	$infosConnexion['user_id'];		
 				$Technique['modified_by'] = 	$infosConnexion['user_id'];	

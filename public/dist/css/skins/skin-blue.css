@@ -84,9 +84,11 @@
 }
 .skin-blue .sidebar a {
   color: #b8c7ce;
+  background : #c14141; 
 }
 .skin-blue .sidebar a:hover {
   text-decoration: none;
+  
 }
 .skin-blue .treeview-menu > li > a {
   color: #8aa4af;
@@ -94,6 +96,7 @@
 .skin-blue .treeview-menu > li.active > a,
 .skin-blue .treeview-menu > li > a:hover {
   color: #ffffff;
+  
 }
 .skin-blue .sidebar-form {
   border-radius: 3px;

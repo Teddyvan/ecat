@@ -19,15 +19,6 @@
                 <input type="password" id="pass" name="mdp" class="form-control" placeholder="mot de passe" />
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>  
-			<div class="form-group has-feedback">
-			<select id="profil" name="profil">
-				<option value="-1">Choisir le profile</option>
-				<option value="1">RAME</option>
-				<option value="2">Association</option>
-				<option value="3">Assistant technique</option>
-			</select>
-                
-            </div>
 			<div class="row">
                 <div class="col-md-4">
 				 <button name="connexion" id="btn_con" type="submit"  class="btn btn-long btn-primary btn-block btn-flat">Connexion</button>
@@ -36,13 +27,17 @@
             </div>
         </form>
 
-        <a href="#">Mot de passe oublié</a>
-        <br />
+       <!-- <a href="#">Mot de passe oublié</a> -->
+        <a id="assoc" >Création association</a><br/>
+        <a id="assis" >Création Assistant</a>
 
     </div>
     <!-- /.login-box-body -->
 </div>
-<script src="<?=SERVER?>/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="<?=SERVER?>/plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<?php include_once("modal/createAssoc.php"); ?>
+	<?php include_once("modal/createTech.php"); ?>
+
 <script type="text/javascript">
 	$(function(){
 		function effacer_formulaire () {
@@ -91,5 +86,21 @@
 			});
 				
 });
+
+//afficher le forms de 
+		/**
+		* Affiche la fenetre modale de creation 
+		*de l'Association 
+		**/
+		$("#assoc").click(function(){
+			$('#association').modal('show') ;
+		});
+		/**
+		* Affiche la fenetre modale de creation 
+		*de l'Association 
+		**/
+		$("#assis").click(function(){
+			$('#assistant').modal('show') ;
+		});  
 	})
 </script>

@@ -100,7 +100,7 @@ class AnnonceController extends AppController
 			die();
         }
         else
-			$this->redirect("Annonce/login");
+			$this->redirect("Utilisateur/login");
 	}
 	
 		public function supprimer()
@@ -125,7 +125,7 @@ class AnnonceController extends AppController
 			die();
         }
         else
-			$this->redirect("Annonce/login");
+			$this->redirect("Utilisateur/login");
 	}
 	public function index($array = null)
 	{
@@ -187,12 +187,12 @@ class AnnonceController extends AppController
 				if($etat)
 				{
 					$success = $this->setAlertSuccess("Annonce modifier avec succees");
-					$array = array("msg"=>$success,"erreur"=>0,"data"=>$Annonce) ;
+					$array = array("msg"=>$success,"erreur"=>0) ;
 				}
 				else
 				{
 					$success = $this->setAlertWarning("Une erreur est survenu durant l'enregistrement veuillez ressayer svp");
-					$array = array("msg"=>$success,"erreur"=>0,"data"=>$Annonce) ;
+					$array = array("msg"=>$success,"erreur"=>0) ;
 				}				
 			}
 			
@@ -201,7 +201,7 @@ class AnnonceController extends AppController
 			die();
         }
         else
-			$this->redirect("Annonce/login");
+			$this->redirect("Utilisateur/login");
 	}   
 	
 }

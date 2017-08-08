@@ -85,7 +85,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                        <a href="<?=SERVERS?>Profil/index" class="btn btn-default btn-flat">Mon profile</a>
+                        <a href="<?=SERVERS?>Profil/index" class="btn btn-default btn-flat">Mon profil</a>
                 </div>
                 <div class="pull-right">
                   <a href="<?=SERVERS?>Utilisateur/deconnexion" class="btn btn-default btn-flat">Deconnexion</a>

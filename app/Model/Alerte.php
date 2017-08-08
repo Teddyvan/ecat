@@ -14,12 +14,25 @@ class Alerte extends \Core\Database\Database
 
 	
 	
-	/*Retourne la liste des utilisateurs */
+	/*Retourne la liste des alertes */
    public function getAllAlerte()
     {
 		try
 		{
 			return $this->findAll();
+		}
+		catch(Exception $e)
+		{
+			echo $e->getMessage();
+		}
+    }
+	
+	/*Retourne la liste des alertes a valider */
+   public function getAllAlerteAValider()
+    {
+		try
+		{
+			return $this->findAllByField(array('name'=>'etat','value'=>0));
 		}
 		catch(Exception $e)
 		{

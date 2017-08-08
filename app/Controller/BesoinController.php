@@ -53,12 +53,12 @@ class BesoinController extends AppController
 				if($etat)
 				{
 					$success = $this->setAlertSuccess("Besoin ajoutée avec succees");
-					$array = array("msg"=>$success,"erreur"=>0,"data"=>$Besoin) ;
+					$array = array("msg"=>$success,"erreur"=>0) ;
 				}
 				else
 				{
 					$success = $this->setAlertWarning("Une erreur est survenu durant l'enregistrement veuillez ressayer svp");
-					$array = array("msg"=>$success,"erreur"=>0,"data"=>$Besoin) ;
+					$array = array("msg"=>$success,"erreur"=>0) ;
 				}				
 			}
 			
@@ -140,11 +140,23 @@ class BesoinController extends AppController
         {
 			$Besoin =  $this->post();
 						
-			$result['Besoin'] = $this->Besoin->deleteBesoin($Besoin['id']);
+			$result = $this->Besoin->getBesoin($Besoin['id']);
 			if($result)
 			{
-				$success = $this->setAlertSuccess("Besoin supprimée avec success");
-				$array = array("msg"=>$success,"erreur"=>0) ;
+				$etat = $this->Besoin->deleteBesoin($Besoin['id']);
+				if($etat)
+				{
+					//supprimer le fichier
+					unlink($result['fichier']) ;
+					$success = $this->setAlertSuccess("Besoin supprimée avec success");
+					$array = array("msg"=>$success,"erreur"=>0) ;
+				}
+				else
+				{
+					$success = $this->setAlertWarning("Une erreur est survenu lors de la suppression.Veuillez ressayer svp !");
+					$array = array("msg"=>$success,"erreur"=>1) ;
+				}
+				
 			}
 			else
 			{
@@ -215,6 +227,70 @@ class BesoinController extends AppController
 			}
 			else
 			{ 
+				if(!empty($_FILES))
+				{
+					$taille_max  = 20000;
+					//recuperation des extension autorise
+					$extensions_valides = array( 'jpg','png' , 'jpeg' );
+					//recuperation de l'extension du fichier
+					$extension_upload = strtolower(  substr(  strrchr($_FILES['photo']['name'], '.')  ,1)  );
+					//repertoire ou sera stocké la photo
+					$chemin = APP_UPLOAD_PATH_IMG.$Besoin['login'] .'.'.$extension_upload;
+					$Besoin['photo'] = $chemin ;
+					
+					if ($_FILES["photo"]["error"] == 0)
+					{
+						if(filesize($_FILES['photo']['tmp_name']) <= $taille_max)
+						{
+							if(in_array($extension_upload,$extensions_valides))
+							{
+								//repertoire ou sera stocké la photo
+
+								if (move_uploaded_file($_FILES['photo']['tmp_name'], $chemin))
+								{
+									
+								}
+								else
+								{
+									$success = $this->setAlertDanger("Erreur lors de l'enregistrement du fichier ");
+									$array = array("msg"=>$success,"erreur"=>0) ;
+									$j = json_encode($array);
+									echo $j ;
+									die();
+								}
+							}
+							else
+							{
+								//extendion non valide
+								$success = $this->setAlertDanger("extension non valide .Les fichiers autorisé sont *.jpg,*.jpeg,*.png ");
+								$array = array("msg"=>$success,"erreur"=>0,"data"=>$Besoin) ;
+								$j = json_encode($array);
+								echo $j ;
+								die();
+							}
+						}
+						else
+						{
+							$success = $this->setAlertDanger("Le fichier est trop volumineux");
+							$array = array("msg"=>$success,"erreur"=>0) ;
+							$j = json_encode($array);
+							echo $j ;
+							die();
+						}
+						
+					}
+					else
+					{
+						//une erreur est survenue
+						$msg = "une erreur est survenue code erreur :".$_FILES["photo"]["error"] ;
+						$success = $this->setAlertDanger($msg);
+						$array = array("msg"=>$success,"erreur"=>0,"data"=>$Besoin) ;
+						$j = json_encode($array);
+						echo $j ;
+						die();
+					}
+					
+				}
 				//on retire l'id du tableau
 				$id = $Besoin['id'];
 				unset($Besoin['id']);
@@ -236,7 +312,7 @@ class BesoinController extends AppController
 			die();
         }
         else
-			$this->redirect("Utilisateur/login");
+			$this->redirect("Besoin/login");
 	}
 	/**
 	Deconnexion de l'application

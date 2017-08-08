@@ -1,6 +1,16 @@
 	$(function(){
 		//le datatable
-	//$('#example1').DataTable();
+		$("#besoin_list").DataTable({
+       "paging": true,
+       "lengthChange": true,
+       "searching": true,
+       "ordering": true,
+       "info": true,
+       "autoWidth": false,
+ 			"language": {
+ 					 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+ 				 }
+     });
 
 		$("#annuler").click(effacer_formulaire);
 		$("#Updtannuler").click(effacer_formulaire);
@@ -301,4 +311,45 @@ $("#upddomain_concerne").change(function(event,valueOption){
 	}
 
 }) ;
+
+//lance le telechargement du fichier
+	/**
+		* Affiche la fenetre modale avec les donnees
+		*de l'Ressource preremplit
+		**/
+		$(".downloadBesoin").click(function(){
+			//recuperation de l'id
+			var id = $(this).attr("value");
+			var data = {};
+			data.id = id ;
+		//	$("#retour").html("<img src='<?=SERVER?>/dist/img/wait.gif' class='img-circle' alt='Veuillez patienter'>");
+			//recuperer les donnees de l'Ressource selon l'id
+			$.ajax({
+				url: "index.php?p=Besoin/telecharger",
+				type: "POST",
+				data: data,
+				dataType: 'json',
+				success: function (data) {
+					if(data.erreur == 1)
+					{
+						//il ya une erreur
+						console.log("ok");
+						$("#retour").html(data.msg);
+					}else
+					{
+						//lancer la boite modal et preremplir les champs
+
+						console.log("ok");
+						//il ya pas d'erreur
+						$("#retour").html(data.msg);
+
+					}
+				},
+				error: function (jqxr, status,erreur) {
+					$("#retour").html(jqxr.responseText+"<br />"+status);
+				}
+			});
+
+		});
+
 	})

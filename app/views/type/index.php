@@ -11,7 +11,6 @@
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#activity" data-toggle="tab"> <i class="fa fa-TypeAlertes"></i> Type d'alertes</a></li>
 				<li><a href="#settings" data-toggle="tab"><i class="fa fa-TypeAlerte-plus"></i> Nouveau Type</a></li>
-			<!--	<li><a href="#profile" data-toggle="tab"><i class="fa fa-TypeAlerte-plus"></i> Mon profile</a></li> -->
 			</ul>
 			<div class="tab-content">
 				<div class="active tab-pane" id="activity">

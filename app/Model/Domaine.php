@@ -25,19 +25,6 @@ class Domaine extends \Core\Database\Database
 		}
     }
 	
-	//tuiliser pour le tableau de bord
-	  public function getAll()
-    {
-		try
-		{
-			return $this->findAll("id,designation as domaine");
-		}
-		catch(Exception $e)
-		{
-			echo $e->getMessage();
-		}
-    }
-	
 	//ajout un nouvel utilisateur
 	public function addDomaine($Domaine)
 	{

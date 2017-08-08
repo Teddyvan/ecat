@@ -5,14 +5,14 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Mise a jour annonce </h4>
+                <h4 class="modal-title"></h4>
               </div>
               <div class="modal-body">
                 
 						  <form id="formUpdate" class="form-horizontal">
 								 <form id="form" class="form-horizontal" >
 								 <fieldset>
-										 <legend>Ajout d'un Alerte</legend>
+										 <legend> Alerte</legend>
 										 <div class="form-group">
 											<label class="col-md-3 control-label">Type  <span class="required">*</span></label>
 											<div class="col-md-6">

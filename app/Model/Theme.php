@@ -95,7 +95,6 @@ class Theme extends \Core\Database\Database
 				FROM ecat_theme t
 				INNER JOIN ecat_domaine d 
 				ON t.domaine_concern = d.id 
-				order by t.domaine_concern ASC
 				";
 		$requete = $this->getPDO()->prepare($sql);
 		try

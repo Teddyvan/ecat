@@ -277,6 +277,4 @@ class Controller
 			print_r($data);
 			echo "</pre>";
 		}
-		
-		
 }

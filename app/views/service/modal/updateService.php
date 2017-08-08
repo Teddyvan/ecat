@@ -9,62 +9,58 @@
               </div>
               <div class="modal-body">
                   <form id="formUpdate" class="form-horizontal" enctype="multipart/form-data">
-								 <form id="form" class="form-horizontal" enctype="multipart/form-data">
+								  <form id="form" class="form-horizontal" enctype="multipart/form-data">
 								 <fieldset>
 										 <legend>Ajout d'une Offre de service</legend>
-										  
+						
 										  <div class="form-group">
 											<label class="col-md-3 control-label">Domaine(s) <span class="required">*</span></label>
 											<div class="col-md-6">
-											  <select required="true" id="upddomaine" name='domaine' class="form-control">
+											  <select required="true" id="natTitre" name='natTitre' class="form-control">
 												<!--<option value="">Choissisez l'agence</option>-->
 												<option value='-1'>Selectionnez un domaine</option>
-												<?php foreach($domaines as $domaine):?>
-													 <option value='<?=$domaine['id']?>'><?=$domaine['designation']?></option>
-												<?php endforeach;?>
-											  </select>
+										
 											  </select>
 											</div>
 										  </div>
 										   <div class="form-group">
 											<label class="col-md-3 control-label">Probleme identifie <span class="required">*</span></label>
 											<div class="col-md-6">
-											<textarea class="form-control " id="updtprobleme_identify" name='probleme_identify' rows="3" placeholder="Probleme identifie"></textarea>
+											<textarea class="form-control " id="" rows="3" placeholder="Probleme identifie"></textarea>
 											</div>
 										  </div> 
 										  <div class="form-group">
 											<label class="col-md-3 control-label">Intitule offre <span class="required">*</span></label>
 											<div class="col-md-6">
-											<textarea class="form-control " id="updoffer_designation" name='offer_designation' rows="3" placeholder="Intitule offre"></textarea>
+											<textarea class="form-control " id="Insuffisance releve" rows="3" placeholder="Intitule offre"></textarea>
 											</div>
 										  </div> 
 										   <div class="form-group">
 											<label class="col-md-3 control-label">Pays concerne <span class="required">*</span></label>
 											<div class="col-md-6">
-											  <select required="true" id="updcountry_concerne" name='country_concerne' class="form-control">
-													<option value='-1'>Selectionnez le pays de l'association</option>
-												 <?php foreach($pays as $pay):?>
-													<option value='<?=$pay['id']?>'><?=$pay['country']?> - <?=$pay['abreviation']?> </option>
-												<?php endforeach;?>
+											  <select required="true" id="natTitre" name='natTitre' class="form-control">
+												<!--<option value="">Choissisez l'agence</option>-->
+												<option value='-1'>Selectionnez un pays</option>
+										
 											  </select>
 											</div>
 										  </div>
 										 <div class="form-group">
 												 <label class="col-md-3 control-label">Ouverture <span class="required">*</span></label>
 												 <div class="col-md-6">
-														 <input id="update_ouverture" type="date" required="true" name="date_ouverture" placeholder="Ouverture" class="form-control required ">
+														 <input id="libelle" type="date" required="true" name="ouverture" placeholder="Ouverture" class="form-control required ">
 												 </div>
 										 </div>
 										  <div class="form-group">
 												 <label class="col-md-3 control-label">Cloture <span class="required">*</span></label>
 												 <div class="col-md-6">
-														 <input id="upddate_fermeture" type="date" required="true" name="date_fermeture" placeholder="Cloture" class="form-control required ">
+														 <input id="libelle" type="date" required="true" name="abreviation" placeholder="Cloture" class="form-control required ">
 												 </div>
 										 </div>
 										  <div class="form-group">
 											<label class="col-md-3 control-label">Regularite de l'offre  <span class="required">*</span></label>
 											<div class="col-md-6">
-											  <select required="true" id="updfrequence" name='frequence' class="form-control">
+											  <select required="true" id="natTitre" name='natTitre' class="form-control">
 												<!--<option value="">Choissisez l'agence</option>-->
 												<option value='1'>Journalier</option>
 												<option value='2'>Hebdomadaire</option>
@@ -75,11 +71,17 @@
 											  </select>
 											</div>
 										  </div>
-										  	
+										  	 <div class="form-group">
+												 <label class="col-md-3 control-label">Formulaire a telecharger <span class="required">*</span></label>
+												 <div class="col-md-6">
+														 <input id="photo" type="file" required="true" name="photo" class="form-control required ">
+												 </div>
+										 </div>
+										
 										
 									 <div class="box-footer">
-											<button id="Updtannuler" type="reset" class="btn btn-warning pull-right">Annuler</button>
-											<button type="submit" id="updSubmit" name="addgroupe" class="btn btn-primary pull-right">Enregistrer</button>
+											<button id="annuler" type="reset" class="btn btn-warning pull-right">Annuler</button>
+											<button type="submit" name="addgroupe" class="btn btn-primary pull-right">Enregistrer</button>
 										 </div>
 								 </fieldset>
 								 <input id="updtid" type="hidden"  name="id"  />

@@ -132,23 +132,6 @@ class DomaineController extends AppController
 			$this->redirect("Utilisateur/login");		
 	}
 	
-	//retourne les domaines pour le tableau de bord
-	public function getAll()
-	{
-		 if($this->existSession("ecatCon"))
-        {            
-			//recuperer la liste des Domaines
-			$domaines = $this->Domaine->getAll();
-			$array = array("erreur"=>0,"data"=>$domaines) ;
-			// $this->echoTest($domaines);
-			$j = json_encode($array);
-			echo $j ;
-			die();
-        }
-        else
-			$this->redirect("Utilisateur/login");		
-	}
-	
 	public function saveUpdate()
 	{
 		if($this->existSession("ecatCon"))

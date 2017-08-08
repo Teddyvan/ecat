@@ -1,7 +1,5 @@
-
-
 <!-- Bootstrap 3.3.6 -->
-<script src="<?=SERVER?>/bootstrap/js/bootstrap.min.js"></script>
+<script src="<?=SERVER?>/bootstrap/js/bootstrap.min.js"></script> 
 <!-- SlimScroll -->
 <!--<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>-->
 <!-- FastClick -->

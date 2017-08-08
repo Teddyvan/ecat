@@ -1,6 +1,16 @@
 	$(function(){
 		//le datatable
-	//$('#example1').DataTable();
+		$("#activite_list").DataTable({
+       "paging": true,
+       "lengthChange": true,
+       "searching": true,
+       "ordering": true,
+       "info": true,
+       "autoWidth": false,
+ 			"language": {
+ 					 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+ 				 }
+     });
 
 		$("#annuler").click(effacer_formulaire);
 		$("#Updtannuler").click(effacer_formulaire);
@@ -84,20 +94,22 @@
 					//	$("#retour").html(data.msg);
 						//on lance la boite modale
 						$("#updtid").val(id);
-						$("#updcategorie").val(data.data.Activite.categorie);
-						$("#updcategorie").removeAttr("disabled");
+						$("#upddesignation").val(data.data.Activite.designation);
+						$("#upddesignation").removeAttr("disabled");
 
-						$("#updtitre_activite").val(data.data.Activite.titre_activite);
-						$("#updtitre_activite").removeAttr("disabled");
+						$("#upddomain_concerne").val(data.data.Activite.domain_concerne);
+						$("#upddomain_concerne").removeAttr("disabled");
 
-						$('#upddomaine_concerne').val(data.data.Activite.domaine_concerne);
-						$("#upddomaine_concerne").removeAttr("disabled");
+						$('#updsous_domaine').append('<option value="'+ data.data.Activite.sous_domaine.id +'">'+ data.data.Activite.sous_domaine.sous_domaine_designation +'</option>');
+						$("#updsous_domaine").removeAttr("disabled");
 
-						$("#upddescription_activite").val(data.data.Activite.description_activite);
-						$("#upddescription_activite").removeAttr("disabled");
+						$("#updinsuffisance_releve").val(data.data.Activite.insuffisance_releve);
+						$("#updinsuffisance_releve").removeAttr("disabled");
 
+						$("#updappui_technique").val(data.data.Activite.appui_technique);
+						$("#updappui_technique").removeAttr("disabled");
 						//desactivation des boutons
-						$("#updtAnnuler").removeAttr("disabled");
+						$("#Updtannuler").removeAttr("disabled");
 						$("#updSubmit").removeAttr("disabled");
 						$('.modal').modal('show') ;
 					}
@@ -150,41 +162,36 @@
 	//suppression d'un Activite
 	$(".delActivite").click(function(){
 
-		var resultat = confirm("Voulez vous vraiment supprimer cette Activite ?");
-		if(resultat)
-		{
-			var id = $(this).attr("value");
-			var donnees = {};
-			donnees.id = id ;
-			console.log(donnees);
-			//supprimer l'Activite
-			console.log("on supprime dans la BD");
-			$.ajax({
-				url: "index.php?p=Activite/supprimer",
-				type: "POST",
-				data: donnees,
-				dataType: 'json',
-				success: function (data) {
-					if(data.erreur == 1)
-					{
-						//il ya une erreur
-						$("#retour").html(data.msg);
-					}else
-					{
-						//il ya pas d'erreur
-						$("#retour").html(data.msg);
-					}
-				},
-				error: function (jqxr, status,erreur) {
-					console.log(jqxr.responseText+"<br />"+status);
+		var id = $(this).attr("value");
+		var donnees = {};
+		donnees.id = id ;
+		console.log(donnees);
+		//supprimer l'Activite
+		console.log("on supprime dans la BD");
+		$.ajax({
+			url: "index.php?p=Activite/supprimer",
+			type: "POST",
+			data: donnees,
+			dataType: 'json',
+			success: function (data) {
+				if(data.erreur == 1)
+				{
+					//il ya une erreur
+					$("#retour").html(data.msg);
+				}else
+				{
+					//il ya pas d'erreur
+					$("#retour").html(data.msg);
 				}
-			});
-			//supprimer la ligne
-			console.log("on supprime la ligne");
-			$(this).parent().parent().remove();
-			console.log("on recharge la page");
-		}
-
+			},
+			error: function (jqxr, status,erreur) {
+				console.log(jqxr.responseText+"<br />"+status);
+			}
+		});
+		//supprimer la ligne
+		console.log("on supprime la ligne");
+		$(this).parent().parent().remove();
+		console.log("on recharge la page");
 	});
 
 	/**
@@ -216,20 +223,25 @@ $(".seeActivite").click(function(){
 				//il ya pas d'erreur
 				//on lance la boite modale
 				$("#updtid").val(id);
-				$("#updcategorie").val(data.data.Activite.categorie);
-				$("#updcategorie").attr("disabled","disabled");
+				$("#upddesignation").val(data.data.Activite.designation);
+				$("#upddesignation").attr("disabled","disabled");
 
-				$("#updtitre_activite").val(data.data.Activite.titre_activite);
-				$("#updtitre_activite").attr("disabled","disabled");
+				$("#updassociation_concerne").val(data.data.Activite.association_concerne);
+				$("#updassociation_concerne").attr("disabled","disabled");
 
-				$('#upddomaine_concerne').val(data.data.Activite.domaine_concerne);
-				$("#upddomaine_concerne").attr("disabled","disabled");
+				$("#upddomain_concerne").val(data.data.Activite.domain_concerne);
+				$("#upddomain_concerne").attr("disabled","disabled");
 
-				$("#upddescription_activite").val(data.data.Activite.description_activite);
-				$("#upddescription_activite").attr("disabled","disabled");
+				$('#updsous_domaine').append('<option value="'+ data.data.Activite.sous_domaine.id +'">'+ data.data.Activite.sous_domaine.sous_domaine_designation +'</option>');
+				$("#updsous_domaine").attr("disabled","disabled");
 
+				$("#updinsuffisance_releve").val(data.data.Activite.insuffisance_releve);
+				$("#updinsuffisance_releve").attr("disabled","disabled");
+
+				$("#updappui_technique").val(data.data.Activite.appui_technique);
+				$("#updappui_technique").attr("disabled","disabled");
 				//desactivation des boutons
-				$("#updtAnnuler").attr("disabled","disabled");
+				$("#updannuler").attr("disabled","disabled");
 				$("#updSubmit").attr("disabled","disabled");
 
 				$('.modal').modal('show') ;

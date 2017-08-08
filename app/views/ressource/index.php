@@ -9,14 +9,14 @@
 	<div class="col-md-9">
 		<div class="nav-tabs-custom">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#activity" data-toggle="tab"> <i class="fa fa-assocations"></i>  Ressource</a></li>
+				<li class="active"><a href="#activity" data-toggle="tab"> <i class="fa fa-assocations"></i>  Liste des ressources</a></li>
 				 <li><a href="#settings" data-toggle="tab"><i class="fa fa-ressource-plus"></i> Nouvelle Ressource</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="active tab-pane" id="activity">
 				 <div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Liste des Service</h3>
+				<h3 class="box-title">Liste des ressources</h3>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
@@ -40,10 +40,10 @@
 						<td><?=$ressource['description_activite']?></td>
 					
 						<td>
-						<button class="seeRessource" title="Voir details du ressource" value="<?=$ressource['id']?>"> <i class="fa fa-eye"></i> </button>&nbsp;&nbsp;
-							<button class="updRessource" title="Modifier le gorupe" value="<?=$ressource['id']?>"> <i class="fa fa-pencil"></i> </button>&nbsp;&nbsp;
+					<!--	<button class="seeRessource" title="Voir details du ressource" value="<?=$ressource['id']?>"> <i class="fa fa-eye"></i> </button>&nbsp;&nbsp; -->
+						<!--	<button class="updRessource" title="Modifier le gorupe" value="<?=$ressource['id']?>"> <i class="fa fa-pencil"></i> </button>&nbsp;&nbsp;-->
 							<button type="button" value="<?=$ressource['id']?>" class="delRessource" title="Supprimer le ressource" ><i class="fa fa-trash"></i> </button>&nbsp;&nbsp;
-							<button type="button" value="<?=$ressource['id']?>" class="downloadRessource" title="Telecharger" ><i class="fa fa-cloud-download"></i> </button>&nbsp;&nbsp;
+						<!--	<button type="button" value="<?=$ressource['id']?>" class="downloadRessource" title="Telecharger" ><i class="fa fa-cloud-download"></i> </button>&nbsp;&nbsp;-->
 							
 
 						</td>
@@ -343,75 +343,6 @@
 			});
 });
 
-		/**
-		* Affiche la fenetre modale avec les donnees
-		*de l'Ressource preremplit
-		**/
-		$(".updRessource").click(function(){
-			//recuperation de l'id
-			var id = $(this).attr("value");
-			var data = {};
-			data.id = id ;
-			$("#retour").html("<img src='<?=SERVER?>/dist/img/wait.gif' class='img-circle' alt='Veuillez patienter'>");
-			//recuperer les donnees de l'Ressource selon l'id
-			$.ajax({
-				url: "index.php?p=Ressources/modifier",
-				type: "POST",
-				data: data,
-				dataType: 'json',
-				success: function (data) {
-					if(data.erreur == 1)
-					{
-						//il ya une erreur
-						$("#retour").html(data.msg);
-					}else
-					{
-						//lancer la boite modal et preremplir les champs
-
-						console.log(data.data.Ressource.id);
-						//il ya pas d'erreur
-						$("#retour").html(data.msg);
-						//on lance la boite modale
-						$("#updtid").val(id);
-						$("#updidentifiant").val(data.data.Ressource.login);
-						$("#updidentifiant").removeAttr("disabled");
-
-						$("#upddesignation").val(data.data.Ressource.designation);
-						$("#upddesignation").removeAttr("disabled");
-
-						$("#updabreviation").val(data.data.Ressource.abreviation);
-						$("#updabreviation").removeAttr("disabled");
-
-						$("#updannee").val(data.data.Ressource.annee_creation);
-						$("#updannee").removeAttr("disabled");
-
-						$("#updpays_Ressource").val(data.data.Ressource.pays_Ressource);
-						$("#updpays_Ressource").removeAttr("disabled");
-
-						$("#updcontact_adresse").val(data.data.Ressource.contact_adresse);
-						$("#updcontact_adresse").removeAttr("disabled");
-
-						$("#updcontact_site").val(data.data.Ressource.contact_site);
-						$("#updcontact_site").removeAttr("disabled");
-
-						$("#updcontact_phone").val(data.data.Ressource.contact_phone);
-						$("#updcontact_phone").removeAttr("disabled");
-
-						$("#updcontact_email").val(data.data.Ressource.contact_email);
-						$("#updcontact_email").removeAttr("disabled");
-
-						//desactivation des boutons
-						$("#Updtannuler").removeAttr("disabled");
-						$("#updSubmit").removeAttr("disabled");
-						$('.modal').modal('show') ;
-					}
-				},
-				error: function (jqxr, status,erreur) {
-					$("#retour").html(jqxr.responseText+"<br />"+status);
-				}
-			});
-
-		});
 
 		//enregistrement des mise a jours de l'Ressource
 		$("#formUpdate").submit(function(e)
@@ -460,6 +391,7 @@
 		console.log(donnees);
 		//supprimer l'Ressource
 		console.log("on supprime dans la BD");
+		$("#retour").html("<img src='<?=SERVER?>/dist/img/wait.gif' class='img-circle' alt='Veuillez patienter'>");
 		$.ajax({
 			url: "index.php?p=Ressources/supprimer",
 			type: "POST",

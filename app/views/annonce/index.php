@@ -1,7 +1,4 @@
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-<script src="<?=SERVER?>/plugins/jQuery/jquery-2.2.3.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <div class="row">
 	<!-- /.col -->
 	<div class="col-md-12">
@@ -13,9 +10,8 @@
 	<div class="col-md-9">
 		<div class="nav-tabs-custom">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#activity" data-toggle="tab"> <i class="fa fa-annonce"></i>  annonce</a></li>
+				<li class="active"><a href="#activity" data-toggle="tab"> <i class="fa fa-annonce"></i> Liste des annonces</a></li>
 				 <li><a href="#settings" data-toggle="tab"><i class="fa fa-pay-plus"></i> Nouvelle annonce</a></li>
-			<!--	<li><a href="#profile" data-toggle="tab"><i class="fa fa-pay-plus"></i> Mon profile</a></li> -->
 			</ul>
 			<div class="tab-content">
 				<div class="active tab-pane" id="activity">
@@ -119,7 +115,7 @@
 										 <div class="form-group">
 											 <label class="col-md-3 control-label">Contenu <span class="required">*</span></label>
 											 <div class="col-md-6">
-											<textarea id="editor1" class="form-control" name="contenu" rows="10"  >
+											<textarea id="editor1" name="contenu" rows="10" cols="45" >
 															
 											</textarea>
 											 </div>
@@ -256,16 +252,20 @@
 		<!-- FIN BOITE MODEL-->
 <!-- /.row -->
 
-<script src="<?=SERVER?>/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="<?=SERVER?>/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?=SERVER?>/plugins/datatables/dataTables.bootstrap.min.js"></script> 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="i18n/datepicker-fr.js"></script>
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="<?=SERVER?>/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!--<script src="<?=SERVER?>/dist/js/script/annonce.js"></script> -->
 <script type='text/javascript'>
   $(function () {
-	  //le datatable
-		$("#annonce_list").DataTable({
+	  
+	  //datatable
+	  	$("#annonce_list").DataTable({
        "paging": true,
        "lengthChange": true,
        "searching": true,
@@ -304,13 +304,6 @@
 		{ // On sélectionne le formulaire par son identifiant
 			e.preventDefault(); // Le navigateur ne peut pas envoyer le formulaire
 			//verification primaire
-
-			var contenu_editor = CKEDITOR.instances.editor1.getData() ;
-			if(contenu_editor == '')
-			{
-				alert("Veuillez saisir l'annonce svp !!");
-				return false ;
-			}
 			
 			var $form = $(this);
 			var formdata = (window.FormData) ? new FormData($form[0]) : null;
