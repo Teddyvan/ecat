@@ -21,33 +21,33 @@
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<table id="assocations" class="table table-hover table-bordered table-striped">
+				<table id="evaluation_list" class="table table-hover table-bordered table-striped">
 					<thead>
 					<tr>
 						<th>date</th>
 						<th>Domaine</th>
-						<th>note</th>
-						
+						<th>Moyenne</th>
+
 					</tr>
 					</thead>
 					<tbody>
-								<?php if(!empty($evaluation)) :?>
-									<?php foreach($evaluation as $Evaluation ):?>
+								<?php if(!empty($evaluations)) :?>
+									<?php foreach($evaluations as $Evaluation ):?>
 					<tr>
-						<td><?=$Evaluation['date']?></td>
-						<td><?=$Evaluation['designation']?></td>
+						<td><?=$Evaluation['date_evaluation']?></td>
+						<td><?=$Evaluation['domaine']?></td>
 						<td><?=$Evaluation['note_moyenne']?></td>
 						<!--<td>
 						<button class="seeEvaluation" title="Voir details du Evaluation" value="<?=$Evaluation['id']?>"> <i class="fa fa-eye"></i> </button>&nbsp;&nbsp;
 							<button class="updEvaluation" title="Modifier le gorupe" value="<?=$Evaluation['id']?>"> <i class="fa fa-pencil"></i> </button>&nbsp;&nbsp;
 							<button type="button" value="<?=$Evaluation['id']?>" class="delEvaluation" title="Supprimer le Evaluation" ><i class="fa fa-trash"></i> </button>&nbsp;&nbsp;
-							
-				
+
+
 						</td> -->
 					</tr>
 					<?php endforeach;?>
 					<?php endif;?>
-	
+
 					</tbody>
 					<tfoot>
 					<tr>
@@ -78,22 +78,22 @@
 					</tr>
 					</thead>
 					<tbody>
-					
+
 								<?php if(!empty($r_tmp)) :?>
 									<?php foreach($r_tmp as $themes ):?>
 					<tr>
-					
+
 					<td style='width:95px'>
 						<?php echo $themes['domaine']['designation']; unset($themes['domaine']['designation']);?>
 					</td>
-					
+
 					</tr>
 									<?php foreach($themes as $t ):?>
-					
+
 					<tr>
 					<td></td>
 					<td style='width:320px'>
-						<?=$t['abreviation'];?>	
+						<?=$t['abreviation'];?>
 					</td>
 					<td>
 						<i class="fa fa-commenting-o" title='<?=$t['cplmt_theme']?>'>
@@ -101,7 +101,7 @@
 					<input type='hidden' name='idTheme[]' value='<?=$t['idTheme']?>' />
 					<input type='hidden' name='idDomaine[]' value='<?=$t["idDomaine"]?>' />
 					<td>
-					
+
 						<select name="note[]" class=".note">
 							<?php foreach($t['note'] as $cle=>$valeur) :?>
 							<option value='<?=$valeur?>'> <?=$valeur?></option>
@@ -122,7 +122,7 @@
 					<?php endforeach;?>
 					<?php endforeach;?>
 					<?php endif;?>
-	
+
 					</tbody>
 					<tfoot>
 					<tr>
@@ -136,16 +136,16 @@
 					</tfoot>
 						 <div class="box-footer">
 							<button id="Updtannuler" type="reset" class="btn btn-warning pull-right">Annuler</button>
-							<button type="submit" id="updSubmit" name="addTheme" class="btn btn-primary pull-right">Enregistrer</button> 
+							<button type="submit" id="updSubmit" name="addTheme" class="btn btn-primary pull-right">Enregistrer</button>
 						 </div>
 					</form>
 				</table>
 				</div>
-				
+
 				<!-- /.tab-pane -->
 			</div>
 
-			
+
 		</div>
 		<!-- /.nav-tabs-custom -->
 	</div>
@@ -159,10 +159,21 @@
 <!-- /.row -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="<?=SERVER?>/plugins/datatables/jquery.dataTables.js"></script>
-<script src="<?=SERVER?>/plugins/datatables/dataTables.bootstrap.min.js"></script> 
+<script src="<?=SERVER?>/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" >
 $(function()
 {
+	$("#evaluation_list").DataTable({
+		 "paging": true,
+		 "lengthChange": true,
+		 "searching": true,
+		 "ordering": true,
+		 "info": true,
+		 "autoWidth": false,
+		"language": {
+				 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+			 }
+	 });
 	/*GESTION PARAMETRAGE des themes*/
 $("#evaluation").submit(function(e){
 	e.preventDefault(); // Le navigateur ne peut pas envoyer le formulaire

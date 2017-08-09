@@ -1,14 +1,17 @@
+
+
 <div class="row">
         <div class="col-md-9">
+
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Reservé pour l'affichage des notes</h3>
+              <h3 class="box-title">Reservé pour l'affichage des notes <span class="date"></span> </h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 <div class="btn-group">
-                  
+
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Action</a></li>
                     <li><a href="#">Another action</a></li>
@@ -17,40 +20,56 @@
                     <li><a href="#">Separated link</a></li>
                   </ul>
                 </div>
-            
+
               </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-9">
                   <p class="text-center">
                     <strong>Derniere évaluation soumise </strong>
                   </p>
 
                   <div class="chart">
                     <!-- Sales Chart Canvas -->
-                     <canvas id="pieChart" style="height:250px"></canvas>
+                    <div id="chart">
+
+                    </div>
+                     <!-- <canvas id="chart" style="height:250px"></canvas> -->
                   </div>
                   <!-- /.chart-responsive -->
                 </div>
                 <!-- /.col -->
-                <div class="col-md-6">
-				<div class="chart">
-					<canvas id="barChart" style="height:230px"></canvas>
-				</div>
-                  <!-- /.progress-group -->
-                
-                  <!-- /.progress-group -->
-                </div>
-                <!-- /.col -->
+                  <!-- /.col -->
               </div>
               <!-- /.row -->
             </div>
             <!-- ./box-body -->
-          
+
             <!-- /.box-footer -->
           </div>
+          <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Les moyennes par domaines</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="table-responsive">
+                      <div id="bar-example"></div>
+                  </div>
+                  <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
+
+                <!-- /.box-footer -->
+              </div>
           <!-- /.box -->
 		  <?php if($type == RAN || $type == ASSISTANT ) :?>
 		  <div class="box box-info">
@@ -82,17 +101,17 @@
 						<td><?=$besoin['besoin_designation']?></td>
 						<td><?=$besoin['domaine']?></td>
 						<td><?=$besoin['insuff']?></td>
-					
+
 						<td>
 						<button class="seeBesoin" title="Voir details du besoin" value="<?=$besoin['id']?>"> <i class="fa fa-eye"></i> </button>&nbsp;&nbsp;
-							<button type="button" value="<?=$besoin['id']?>" class="donwloadAnnonce" title="Telecharger" ><i class="fa fa-cloud-download"></i> </button>&nbsp;&nbsp;
-							
-							
+							<!-- <button type="button" value="<?=$besoin['id']?>" class="donwloadAnnonce" title="Telecharger" ><i class="fa fa-cloud-download"></i> </button>&nbsp;&nbsp; -->
+
+
 						</td>
 					</tr>
 					<?php endforeach;?>
 					<?php endif;?>
-	
+
 					</tbody>
 					<tfoot>
 					<tr>
@@ -107,9 +126,9 @@
               <!-- /.table-responsive -->
             </div>
             <!-- /.box-body -->
-            <div class="box-footer clearfix">
+            <!-- <div class="box-footer clearfix">
               <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Voir tout</a>
-            </div>
+            </div> -->
             <!-- /.box-footer -->
           </div>
 			<?php endif;?>
@@ -147,18 +166,18 @@
 						<td><?=$service['offre']?></td>
 						<td><?=$service['ouverture']?></td>
 						<td><?=$service['fermeture']?></td>
-					
+
 						<td>
 						<button class="seeService" title="Voir details du Service" value="<?=$service['id']?>"> <i class="fa fa-eye"></i> </button>&nbsp;
-							<button type="button" value="<?=$service['id']?>" class="donwloadAnnonce" title="Telecharger" ><i class="fa fa-cloud-download"></i> </button>&nbsp;&nbsp;
-						
-						
-				
+							<!-- <button type="button" value="<?=$service['id']?>" class="donwloadAnnonce" title="Telecharger" ><i class="fa fa-cloud-download"></i> </button>&nbsp;&nbsp; -->
+
+
+
 						</td>
 					</tr>
 					<?php endforeach;?>
 					<?php endif;?>
-	
+
 					</tbody>
 					<tfoot>
 					<tr>
@@ -175,13 +194,13 @@
               <!-- /.table-responsive -->
             </div>
             <!-- /.box-body -->
-            <div class="box-footer clearfix">
+            <!-- <div class="box-footer clearfix">
               <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Voir tout</a>
-            </div>
+            </div> -->
             <!-- /.box-footer -->
           </div>
 		  <?php endif;?>
-		   
+
 		  <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Evenements</h3>
@@ -215,16 +234,16 @@
 						<td><?=$pay['date_debut']?></td>
 						<td><?=$pay['date_fin']?></td>
 						<td><?=$pay['contenu']?></td>
-					
+
 						<td>
 						<button class="seeAnnonce" title="Voir details du annonce" value="<?=$pay['id']?>"> <i class="fa fa-eye"></i> </button>&nbsp;&nbsp;
 
-				
+
 						</td>
 					</tr>
 					<?php endforeach;?>
 					<?php endif;?>
-	
+
 					</tbody>
 					<tfoot>
 					<tr>
@@ -241,15 +260,15 @@
               <!-- /.table-responsive -->
             </div>
             <!-- /.box-body -->
-            <div class="box-footer clearfix">
+            <!-- <div class="box-footer clearfix">
               <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Voir tout</a>
-            </div>
+            </div> -->
             <!-- /.box-footer -->
           </div>
         </div>
         <!-- /.col -->
 		<div class="col-md-3">
-                      
+
 					 <div class="box box-warning">
                       <div class="box-header with-border">
                          <h3 class="box-title">Ressource documentaire</h3>
@@ -265,7 +284,7 @@
                        <div class="box-body">
                          <section class="sidebar">
 					<div id="evts" class="demo"></div>
-					 <li class="item">
+					 <!-- <li class="item">
 
                   <div class="product-info">
                     <a href="javascript:void(0)" class="product-title">Samsung TV
@@ -274,7 +293,7 @@
                           Samsung 32" 1080p 60Hz LED Smart HDTV.
                         </span>
                   </div>
-                </li>
+                </li> -->
                           <canvas id="areaChart" style="height:250px"></canvas>
                        </section>
                        </div>
@@ -296,7 +315,7 @@
                        <div class="box-body">
                          <section class="sidebar">
 					<div id="evts" class="demo"></div>
-                        
+
                        </section>
                        </div>
 
@@ -309,7 +328,7 @@
                          <div class="box-tools pull-right">
                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                            </button>
-						  
+
                          </div>
                          <!-- /.box-tools -->
                        </div>
@@ -351,151 +370,63 @@
 <?php include_once("modal/updateAnnonce.php");?>
 <?php include_once("modal/updateBesoin.php");?>
 <?php include_once("modal/updateService.php");?>
-<script src="<?=SERVER?>/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="<?=SERVER?>/plugins/chartjs/Chart.min.js"></script>
+<!-- <script src="<?=SERVER?>/plugins/jQuery/jquery-2.2.3.min.js"></script> -->
+<!-- <script src="<?=SERVER?>/plugins/chartjs/Chart.min.js"></script> -->
+<!-- <script src="<?=SERVER?>/plugins/jQuery/jquery-2.2.3.min.js"></script> -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css" />
 <script>
   $(function () {
-    /* ChartJS
-     * -------
-     * Here we will create a few charts using ChartJS
-     */
-	// Get context with jQuery - using jQuery's .get() method.
-	
-    var areaChartData = {
-      labels: [],
-      datasets: [
-        {
-          label: "",
-          fillColor: "#00ffbf",
-          strokeColor: "rgba(210, 214, 222, 1)",
-          pointColor: "rgba(210, 214, 222, 1)",
-          pointStrokeColor: "#c1c7d1",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [65, 59, 80, 81, 56, 55, 40]
-        }
-      ]
-    };
-	var dataBaton = {} ;
-	$.ajax({
-			url: "index.php?p=Domaine/getAll",
-			type: "GET",
-			dataType: 'json',
-			success: function (data) {
-				if(data.erreur == 1)
-				{
-					//il ya une erreur
-					$("#retour").html(data.msg);
-				}else
-				{
-					//lancer la boite modal et preremplir les champs
-					console.log(data.data.serv);
-					 $.each(data.data, function (index,value) {
-						 console.log("id "+value.id);
-						 console.log("valeur "+value.domaine);
-						areaChartData.labels.push = value.domaine ;
-					});
-				}
-			},
-			error: function (jqxr, status,erreur) {
-				$("#retour").html(jqxr.responseText+"<br />"+status);
-			}
-		});
-	//recuperer les domaines qui seront les titres du graphes
-	
+
+//recupere la moyenne globale
+ $("#retour").html("<img src='<?=SERVER?>/dist/img/wait.gif' class='img-circle' alt='Veuillez patienter'>");
+//barchart
+
+//donuts
+$.ajax({
+  url: "index.php?p=Theme/getDerniereEvaluation",
+  type: "GET",
+  dataType: 'json',
+  success: function (data) {
+    if(data.erreur == 1)
+    {
+      //il ya une erreur
+      $("#chart").html(data.msg);
+    }else
+    {
+      //il ya pas d'erreur
+      console.log(data);
+      //la date de dernier mise a jour
+      $(".date").html(data.date);
+      //le donus
+      var donut_chart = Morris.Donut({
+					element: 'chart',
+					data: data.data				});
+      //le diagramme en baton
+      Morris.Bar({
+        element: 'bar-example',
+        data: data.domaine,
+        gridTextSize :10,
+        xkey: 'y',//chaine contenant le nom  contenu ds le label sur le x
+        ykeys: 'a',//chaine contenant le nom  contenu ds le label sur le y
+        labels: ['Moyenne'],
+        resize : true
+      });
+
+    }
+  },
+  error: function (jqxr, status,erreur) {
+    $("#retour").html("");
+    console.log(jqxr.responseText+"<br />"+status);
+  }
+
+});
 
 
- 
-	//-------------
-    //- BAR CHART -
-    //-------------
-    var barChartCanvas = $("#barChart").get(0).getContext("2d");
-    var barChart = new Chart(barChartCanvas);
-    var barChartData = areaChartData;
 
-		
-    // barChartData.datasets[1].strokeColor = "#00a65a";
-    // barChartData.datasets[1].pointColor = "#00a65a";
-    var barChartOptions = {
-      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-      scaleBeginAtZero: true,
-      //Boolean - Whether grid lines are shown across the chart
-      scaleShowGridLines: true,
-      //String - Colour of the grid lines
-      scaleGridLineColor: "rgba(0,0,0,.05)",
-      //Number - Width of the grid lines
-      scaleGridLineWidth: 1,
-      //Boolean - Whether to show horizontal lines (except X axis)
-      scaleShowHorizontalLines: true,
-      //Boolean - Whether to show vertical lines (except Y axis)
-      scaleShowVerticalLines: true,
-      //Boolean - If there is a stroke on each bar
-      barShowStroke: true,
-      //Number - Pixel width of the bar stroke
-      barStrokeWidth: 2,
-      //Number - Spacing between each of the X value sets
-      barValueSpacing: 5,
-      //Number - Spacing between data sets within X values
-      barDatasetSpacing: 1,
-      //String - A legend template
-      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
-      //Boolean - whether to make the chart responsive
-      responsive: true,
-      maintainAspectRatio: true
-    };
-
-    barChartOptions.datasetFill = false;
-    barChart.Bar(barChartData, barChartOptions);
-  
-    //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-    var pieChart = new Chart(pieChartCanvas);
-    var PieData = [
-      {
-        value: 700,
-        color: "#f56954",
-        highlight: "#f56954",
-        label: "Gouvernance"
-      },
-      {
-        value: 700,
-        color: "#00a65a",
-        highlight: "#00a65a",
-        label: "Gestion financiere"
-      },
-     
-    ];
-    var pieOptions = {
-      //Boolean - Whether we should show a stroke on each segment
-      segmentShowStroke: true,
-      //String - The colour of each segment stroke
-      segmentStrokeColor: "#fff",
-      //Number - The width of each segment stroke
-      segmentStrokeWidth: 2,
-      //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout: 0, // This is 0 for Pie charts
-      //Number - Amount of animation steps
-      animationSteps: 100,
-      //String - Animation easing effect
-      animationEasing: "easeOutBounce",
-      //Boolean - Whether we animate the rotation of the Doughnut
-      animateRotate: true,
-      //Boolean - Whether we animate scaling the Doughnut from the centre
-      animateScale: false,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive: true,
-      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio: true,
-      //String - A legend template
-      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-    };
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    pieChart.Doughnut(PieData, pieOptions);
-	
 	/*VISUALISATION DETAILS ANNONCE*/
 		$(".seeAnnonce").click(function()
 		{
@@ -536,7 +467,7 @@
 						// CKEDITOR.instances['updeditor1'].setData(data.data.Annonce.contenu);
 						$("#updeditor1").val(data.data.Annonce.contenu);
 						$("#updeditor1").attr("disabled","disabled");
-						
+
 						//desactivation des boutons
 						$("#updtannuler").attr("disabled","disabled");
 						$("#updSubmit").attr("disabled","disabled");
@@ -550,7 +481,7 @@
 			});
 
 		});
-		
+
 		/**
 	* Affiche les details  modale avec les donnees
 	*de l'Besoin preremplit
@@ -674,6 +605,6 @@ $(".seeService").click(function(){
 
 });
 
-   
+
   });
 </script>

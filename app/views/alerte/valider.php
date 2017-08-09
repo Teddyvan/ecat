@@ -40,22 +40,22 @@
 						<?php if($alerte['anonyme'] == 2) :?>
 						<td><small class='label label-danger'><i class='fa fa-clock-o'></i> Anonyme </small></td>
 						<?php endif;?>
-						
+
 						<td><?=$alerte['type_name']?></td>
 						<td><?=$alerte['intitule']?></td>
 						<td><?=$alerte['description']?></td>
 						<td><?= ($alerte['etat'] == 0) ? "<small class='label label-danger'><i class='fa fa-clock-o'></i> En attente de validation </small>" : "<small class='label label-success'><i class='fa fa-clock-o'></i> ValidÃ© </small>" ?></td>
-					
+
 						<td>
 						<button class="seeAlerte" title="Voir details du Alerte" value="<?=$alerte['id']?>"> <i class="fa fa-eye"></i> </button>&nbsp;&nbsp;
 							<button class="validerAlerte" title="Valider" value="<?=$alerte['id']?>"> <i class="fa fa-check-square-o"></i> </button>&nbsp;&nbsp;
 						<!--	<button type="button" value="<?=$alerte['id']?>" class="delAlerte" title="Supprimer le Alerte" ><i class="fa fa-trash"></i> </button>&nbsp;&nbsp; -->
-				
+
 						</td>
 					</tr>
 					<?php endforeach;?>
 					<?php endif;?>
-	
+
 					</tbody>
 					<tfoot>
 					<tr>
@@ -93,7 +93,7 @@
                        <div class="box-body">
                          <section class="sidebar">
 					<div id="evts" class="demo"></div>
-                        
+
                        </section>
                        </div>
 
@@ -114,7 +114,7 @@
                        <div class="box-body">
                          <section class="sidebar">
 					<div id="evts" class="demo"></div>
-                        
+
                        </section>
                        </div>
 
@@ -135,7 +135,7 @@
                        <div class="box-body">
                          <section class="sidebar">
 					<div id="evts" class="demo"></div>
-                        
+
                        </section>
                        </div>
 
@@ -148,7 +148,7 @@
                          <div class="box-tools pull-right">
                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                            </button>
-						  
+
                          </div>
                          <!-- /.box-tools -->
                        </div>
@@ -185,15 +185,15 @@
 
                        <!-- /.box-body -->
                      </div>
-	  </div>      
-	  </div>      
+	  </div>
+	  </div>
 		<!-- BOITE MODEL-->
 	<?php include_once("modal/updateAlerte.php"); ?>
 		<!-- FIN BOITE MODEL-->
 <!-- /.row -->
 <script src="<?=SERVER?>/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="<?=SERVER?>/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="<?=SERVER?>/plugins/datatables/dataTables.bootstrap.min.js"></script> 
+<script src="<?=SERVER?>/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <!--<script src="<?=SERVER?>/dist/js/script/Alerte.js"></script> -->
 <script type='text/javascript'>
@@ -211,7 +211,7 @@
  				 }
      });
 	  //datepicker
-	
+
 	 //vide le forms
 	 $("#annuler").click(effacer_formulaire);
 	 $("#Updtannuler").click(effacer_formulaire);
@@ -225,7 +225,7 @@
 	}
 
   $("#form").submit(function(e)
-		{ // On sélectionne le formulaire par son identifiant
+		{ // On sï¿½lectionne le formulaire par son identifiant
 			e.preventDefault(); // Le navigateur ne peut pas envoyer le formulaire
 			//verification primaire
 
@@ -234,12 +234,12 @@
 				alert("Veuillez selectionner le type de l'alerte svp !!");
 				return false ;
 			}
-			
+
 			var $form = $(this);
 			var formdata = (window.FormData) ? new FormData($form[0]) : null;
 			var donnees = {};
 			donnees = (formdata !== null) ? formdata : $form.serialize();
-			//var donnees = $(this).serialize(); // On créer une variable contenantt le formulaire sérialisé
+			//var donnees = $(this).serialize(); // On crï¿½er une variable contenantt le formulaire sï¿½rialisï¿½
 
 			//transmission des donnees
 			$("#retour").html("<img src='<?=SERVER?>/dist/img/wait.gif' class='img-circle' alt='Veuillez patienter'>");
@@ -266,9 +266,9 @@
 				error: function (jqxr, status,erreur) {
 					$("#retour").html(jqxr.responseText+"<br />"+status);
 				}
-			}); 
+			});
 		});
-		
+
 		/*VISUALISATION DETAILS Alerte*/
 		$(".seeAlerte").click(function()
 		{
@@ -304,8 +304,8 @@
 						$("#updintitule").attr("disabled","disabled");
 						$("#upddescription").val(data.data.Alerte.description);
 						$("#upddescription").attr("disabled","disabled");
-						
-						
+
+
 						//desactivation des boutons
 						$("#updtannuler").attr("disabled","disabled");
 						$("#updSubmit").attr("disabled","disabled");
@@ -319,8 +319,8 @@
 			});
 
 		});
-		
-		
+
+
 
 		/*SAUvegarde mise a jour*/
 		//enregistrement des mise a jours de l'alertes
@@ -330,14 +330,12 @@
 			var donnees = {} ;
 			donnees.id = $(".validerAlerte").val();
 			donnees.etat = 1;
-			console.log("id "+donnees.id) ;
-			console.log("etat "+donnees.etat) ;
-			console.log(donnees) ;
+			// console.log("id "+donnees.id) ;
+			// console.log("etat "+donnees.etat) ;
+			// console.log(donnees) ;
 			//transmission des donnees
 			$("#retour").html("<img src='<?=SERVER?>/dist/img/wait.gif' class='img-circle' alt='Veuillez patienter'>");
 			$.ajax({
-				contentType: false, //obligatoire pour de l'upload
-				processData:false, //obligatoire pour de l'upload
 				url: "index.php?p=Alerte/validation",
 				type: "POST",
 				data: donnees,
@@ -360,7 +358,7 @@
 				}
 			});
 		});
-		
+
 		/*Suppression d'une Alerte*/
 		$(".delAlerte").click(function(){
 		var result = confirm('Supprimer cette Alerte ?');
@@ -397,9 +395,9 @@
 				$(this).parent().parent().remove();
 				console.log("on recharge la page");
 			}
-			
+
 		});
-		
+
 
 });
 </script>

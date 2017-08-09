@@ -31,7 +31,7 @@ class AlerteController extends AppController
 			$validator->check('intitule', 'required',"intitule");
 			$validator->check('description', 'required',"description");
 			$erreur = $validator->errors();
-			
+
 			if(!empty($erreur))
 			{
 				//il ya erreur
@@ -39,11 +39,11 @@ class AlerteController extends AppController
 				$array = array("msg"=>$erreur,"erreur"=>1,"data"=>$Alerte) ;
 			}
 			else
-			{ 
+			{
 				$infosConnexion = $this->getSession("ecatCon") ;
 				$Alerte['association'] = $infosConnexion['assoc_id'];
 				// $this->echoTest($Alerte);
-				
+
 				$etat = $this->Alerte->addAlerte($Alerte);
 				if($etat)
 				{
@@ -55,8 +55,8 @@ class AlerteController extends AppController
 					$success = $this->setAlertWarning("Une erreur est survenu durant l'enregistrement veuillez ressayer svp");
 					$array = array("msg"=>$success,"erreur"=>0) ;
 				}
-			}				
-			
+			}
+
 			$j = json_encode($array);
 			echo $j ;
 			die();
@@ -64,14 +64,14 @@ class AlerteController extends AppController
         else
 			$this->redirect("Utilisateur/login");
 	}
-	
-	
+
+
 	public function modifier()
 	{
 		if($this->existSession("ecatCon"))
         {
 			$Alerte =  $this->post();
-						
+
 			$result['Alerte'] = $this->Alerte->getAlerte($Alerte['id']);
 			if($result)
 			{
@@ -82,7 +82,7 @@ class AlerteController extends AppController
 			{
 				$success = $this->setAlertWarning("Une erreur est survenu veuillez ressayer svp !");
 				$array = array("msg"=>$success,"erreur"=>1) ;
-			}				
+			}
 			$j = json_encode($array);
 			echo $j ;
 			die();
@@ -90,13 +90,13 @@ class AlerteController extends AppController
         else
 			$this->redirect("Alerte/login");
 	}
-	
+
 		public function supprimer()
 	{
 		if($this->existSession("ecatCon"))
         {
 			$Alerte =  $this->post();
-						
+
 			$etat = $this->Alerte->deleteAlerte($Alerte['id']);
 			if($etat)
 			{
@@ -107,7 +107,7 @@ class AlerteController extends AppController
 			{
 				$success = $this->setAlertWarning("Une erreur est survenu veuillez ressayer svp !");
 				$array = array("msg"=>$success,"erreur"=>1) ;
-			}				
+			}
 			$j = json_encode($array);
 			echo $j ;
 			die();
@@ -115,12 +115,12 @@ class AlerteController extends AppController
         else
 			$this->redirect("Utilisateur/login");
 	}
-	
-	
+
+
 	public function index($array = null)
 	{
 		if($this->existSession("ecatCon"))
-        {            
+        {
 			$infosConnexion = $this->getSession("ecatCon") ;
 			// $infosConnexion['assistant_id'];
 			$alertes = array();
@@ -138,16 +138,16 @@ class AlerteController extends AppController
             $this->render("alerte.index",compact("alertes","types"));
         }
         else
-			$this->redirect("Utilisateur/login");		
+			$this->redirect("Utilisateur/login");
 	}
-	
+
 	/*
-	*Alerte a valider 
+	*Alerte a valider
 	*/
 	public function valider($array = null)
 	{
 		if($this->existSession("ecatCon"))
-        {            
+        {
 			$infosConnexion = $this->getSession("ecatCon") ;
 			// $infosConnexion['assistant_id'];
 			$alertes = array();
@@ -166,22 +166,22 @@ class AlerteController extends AppController
             $this->render("alerte.valider",compact("alertes","types"));
         }
         else
-			$this->redirect("Utilisateur/login");		
+			$this->redirect("Utilisateur/login");
 	}
 
-	
+
 	public function saveUpdate()
 	{
 		if($this->existSession("ecatCon"))
         {
 			$Alerte =  $this->post();
-		
+
 			$validator = new Validators($Alerte);
 			$validator->check('type', 'required',"type");
 			$validator->check('intitule', 'required',"intitule");
 			$validator->check('description', 'required',"description");
 			$erreur = $validator->errors();
-			
+
 			if(!empty($erreur))
 			{
 				//il ya erreur
@@ -189,8 +189,8 @@ class AlerteController extends AppController
 				$array = array("msg"=>$erreur,"erreur"=>1,"data"=>$Alerte) ;
 			}
 			else
-			{ 
-				
+			{
+
 				//on retire l'id du tableau
 				$id = $Alerte['id'];
 				unset($Alerte['id']);
@@ -204,9 +204,9 @@ class AlerteController extends AppController
 				{
 					$success = $this->setAlertWarning("Une erreur est survenu durant l'enregistrement veuillez ressayer svp");
 					$array = array("msg"=>$success,"erreur"=>0,"data"=>$Alerte) ;
-				}				
+				}
 			}
-			
+
 			$j = json_encode($array);
 			echo $j ;
 			die();
@@ -214,7 +214,7 @@ class AlerteController extends AppController
         else
 			$this->redirect("Alerte/login");
 	}
-	
+
 	/*
 	*Valide une alerte
 	*/
@@ -223,13 +223,12 @@ class AlerteController extends AppController
 		if($this->existSession("ecatCon"))
         {
 			$Alerte =  $this->post();
-		
+
 			$validator = new Validators($Alerte);
-			$this->echoTest($Alerte);
 			$validator->check('id', 'required',"id");
 			$validator->check('etat', 'required',"etat");
 			$erreur = $validator->errors();
-			
+
 			if(!empty($erreur))
 			{
 				//il ya erreur
@@ -237,8 +236,8 @@ class AlerteController extends AppController
 				$array = array("msg"=>$erreur,"erreur"=>1,"data"=>$Alerte) ;
 			}
 			else
-			{ 
-				
+			{
+
 				//on retire l'id du tableau
 				$id = $Alerte['id'];
 				unset($Alerte['id']);
@@ -252,15 +251,15 @@ class AlerteController extends AppController
 				{
 					$success = $this->setAlertWarning("Une erreur est survenu durant la validation veuillez ressayer svp");
 					$array = array("msg"=>$success,"erreur"=>0,"data"=>$Alerte) ;
-				}				
+				}
 			}
-			
+
 			$j = json_encode($array);
 			echo $j ;
 			die();
         }
         else
 			$this->redirect("Utilisateur/login");
-	}   
-	
+	}
+
 }

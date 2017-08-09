@@ -32,7 +32,7 @@ class ThemeController extends AppController
 			$validator->check('domaine_concern', 'required',"Domaine");
 			$validator->check('abreviation', 'required',"Abreviation");
 			$erreur = $validator->errors();
-			
+
 			if(!empty($erreur))
 			{
 				//il ya erreur
@@ -40,11 +40,11 @@ class ThemeController extends AppController
 				$array = array("msg"=>$erreur,"erreur"=>1,"data"=>$Theme) ;
 			}
 			else
-			{ 
+			{
 				$infosConnexion = $this->getSession("ecatCon") ;
-				// $Theme['created_by']  = 	$infosConnexion['user_id'];		
-				// $Theme['modified_by'] = 	$infosConnexion['user_id'];	
-				
+				// $Theme['created_by']  = 	$infosConnexion['user_id'];
+				// $Theme['modified_by'] = 	$infosConnexion['user_id'];
+
 				$etat = $this->Theme->addTheme($Theme);
 				if($etat)
 				{
@@ -55,9 +55,9 @@ class ThemeController extends AppController
 				{
 					$success = $this->setAlertWarning("Une erreur est survenu durant l'enregistrement veuillez ressayer svp");
 					$array = array("msg"=>$success,"erreur"=>0,"data"=>$Theme) ;
-				}				
+				}
 			}
-			
+
 			$j = json_encode($array);
 			echo $j ;
 			die();
@@ -65,14 +65,14 @@ class ThemeController extends AppController
         else
 			$this->redirect("Utilisateur/login");
 	}
-	
-	
+
+
 	public function modifier()
 	{
 		if($this->existSession("ecatCon"))
         {
 			$Theme =  $this->post();
-						
+
 			$result['Theme'] = $this->Theme->getTheme($Theme['id']);
 			if($result)
 			{
@@ -83,7 +83,7 @@ class ThemeController extends AppController
 			{
 				$success = $this->setAlertWarning("Une erreur est survenu veuillez ressayer svp !");
 				$array = array("msg"=>$success,"erreur"=>1) ;
-			}				
+			}
 			$j = json_encode($array);
 			echo $j ;
 			die();
@@ -91,13 +91,13 @@ class ThemeController extends AppController
         else
 			$this->redirect("Utilisateur/login");
 	}
-	
+
 	public function supprimer()
 	{
 		if($this->existSession("ecatCon"))
         {
 			$Theme =  $this->post();
-						
+
 			$result = $this->Theme->deleteTheme($Theme['id']);
 			if($result)
 			{
@@ -108,7 +108,7 @@ class ThemeController extends AppController
 			{
 				$success = $this->setAlertWarning("Une erreur est survenu veuillez ressayer svp !");
 				$array = array("msg"=>$success,"erreur"=>1) ;
-			}				
+			}
 			$j = json_encode($array);
 			echo $j ;
 			die();
@@ -116,11 +116,11 @@ class ThemeController extends AppController
         else
 			$this->redirect("Theme/login");
 	}
-	
+
 	public function index($array = null)
 	{
 		 if($this->existSession("ecatCon"))
-        {            
+        {
 			//recuperer la liste des Themes
 			$Themes = $this->Theme->getAllTheme();
 			$Theme = array();
@@ -137,20 +137,20 @@ class ThemeController extends AppController
             $this->render("theme.index",compact("Theme",'domaines'));
         }
         else
-			$this->redirect("Utilisateur/login");		
+			$this->redirect("Utilisateur/login");
 	}
-	
+
 	public function saveUpdate()
 	{
 		if($this->existSession("ecatCon"))
         {
 			$Theme =  $this->post();
-		
+
 			$validator = new Validators($Theme);
 			$validator->check('domaine_concern', 'required',"Domaine");
 			$validator->check('abreviation', 'required',"Abreviation");
 			$erreur = $validator->errors();
-			
+
 			if(!empty($erreur))
 			{
 				//il ya erreur
@@ -158,7 +158,7 @@ class ThemeController extends AppController
 				$array = array("msg"=>$erreur,"erreur"=>1,"data"=>$Theme) ;
 			}
 			else
-			{ 
+			{
 				//on retire l'id du tableau
 				$id = $Theme['id'];
 				unset($Theme['id']);
@@ -172,9 +172,9 @@ class ThemeController extends AppController
 				{
 					$success = $this->setAlertWarning("Une erreur est survenu durant l'enregistrement veuillez ressayer svp");
 					$array = array("msg"=>$success,"erreur"=>0,"data"=>$Theme) ;
-				}				
+				}
 			}
-			
+
 			$j = json_encode($array);
 			echo $j ;
 			die();
@@ -182,7 +182,7 @@ class ThemeController extends AppController
         else
 			$this->redirect("Utilisateur/login");
 	}
-	
+
 	/*Retourne les sous domaine en fonction du domaine*/
 	public function getSoudomaineByDomaine()
 	{
@@ -197,7 +197,7 @@ class ThemeController extends AppController
         else
 			$this->redirect("Utilisateur/login");
 	}
-	
+
 	/*Recupere les themes puis les regroupe par domaine pour le parametrage des themes*/
 	public function parametre()
 	{
@@ -230,7 +230,32 @@ class ThemeController extends AppController
 		}
 
 	}
-	
+
+	/***RECUPERE LA NOTE GLOBALE**/
+	public function getDerniereEvaluation()
+	{
+		$infosConnexion = $this->getSession("ecatCon") ;
+
+		if(isset($infosConnexion["assoc_id"]))
+		{
+			$moyen_general = $this->Evaluation->getLastEvaluation($infosConnexion["assoc_id"]);
+			//recuperation de la date max
+			$dateMax = $this->Evaluation->getMaxDate($infosConnexion["assoc_id"]);
+			//recuperation des moyenne  par domaine pour la date
+			$moyenneParDomaine = $this->Evaluation->getLastMoyenneByDomaine($infosConnexion["assoc_id"],$dateMax);
+			// $this->echoTest($moyenneParDomaine);
+
+			$data[0]['label'] = 'Moyenne de la derniere evaluation';
+			$data[0]['value'] = $moyen_general['value'] ;
+			$data[1]['label'] = 'total' ;
+			$data[1]['value'] = 100 ;
+			$donnee = array("domaine"=>$moyenneParDomaine,"date"=>$moyen_general['date_max'],"data"=>$data);
+
+			$json = json_encode($donnee);
+			echo $json ;
+		}
+
+	}
 	/*****Affiche le forme d'auto evaluatiion
 	avec les donnees paramatrer par la rame********/
 	public function autoEvaluer()
@@ -252,9 +277,7 @@ class ThemeController extends AppController
 			$themePourAutoEvaluation = array();
 			foreach($params as $param)
 			{
-				//$param['idDomaine']
-				//$param['idTheme']
-			
+
 				foreach($themes as $theme)
 				{
 					if($theme['idTheme'] == $param['idTheme'] && $theme['idDomaine'] == $param['idDomaine'])
@@ -268,7 +291,7 @@ class ThemeController extends AppController
 					}
 				}
 			}
-			
+
 			foreach($themePourAutoEvaluation as $theme)
 			{
 				if($ligne["designation"] != $theme['designation'])
@@ -282,32 +305,16 @@ class ThemeController extends AppController
 				}
 				$ligne = $theme;
 			}
-			
+
 			$evaluations = $this->Evaluation->getRecaptEvaluation($infosConnexion['assoc_id']);
-			
-			// $this->echoTest($evaluations);
-			foreach($evaluations as $evaluation)
-			{
-				if($ligne["designation"] != $theme['designation'])
-				{
-					$i++ ;
-					$r_tmp[$i]['domaine'] = $theme ;
-				}
-				else
-				{
-					$r_tmp[$i][] = $theme ;
-				}
-				$ligne = $theme;
-			}
 			//recuperer la liste des evaluations
-			// $evaluations = $this->Trace->getAllEvalByAssoc($infosConnexion['assoc_id']) ;
+			// $this->echoTest($evaluations);
 			$this->render("evaluation.index",compact("evaluations","domaines","r_tmp"));
 		}
 		else
 		{
 			$this->redirect("Utilisateur/login");
 		}
-		
 	}
-	
+
 }
