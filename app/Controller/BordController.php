@@ -24,6 +24,7 @@ class BordController extends AppController
 		$this->loadModel("Ressource");
 		$this->loadModel("Annonce");
 		$this->loadModel("Pays");
+		$this->loadModel("Evaluation");
 		
 	}
 	
@@ -48,6 +49,33 @@ class BordController extends AppController
 				$type = ASSOC ;
 				//recuperer les offres
 				$offres = $this->Service->getToutService();
+				//date derniere evaluation
+				$dateMax = $this->Evaluation->getMaxDate($infosConnexion["assoc_id"]);
+				//pour le recap a droite du donut
+				$recapMoyenneParDomaine = $this->Evaluation->getrecapMoyenneByDomaine($infosConnexion["assoc_id"],$dateMax);
+				// $this->echoTest($recapMoyenneParDomaine) ;
+				$recap = array () ;
+				foreach($recapMoyenneParDomaine as $r)
+				{
+					$r['couleur'] = '' ;
+					if($r['note'] >= 0 && $r['note'] < 25)
+					{
+						$r['couleur'] = 'red';
+					}
+						
+					if($r['note'] >= 25 && $r['note'] < 50 ){
+						$r['couleur'] = 'orange';
+
+					}
+					if($r['note'] >= 50 && $r['note'] < 75 )
+						$r['couleur'] = '#00ff6f';
+					if($r['note'] >= 75)
+						$r['couleur'] = 'green';
+						
+						// var_dump($r);
+						
+					$recap[] = $r ;
+				}
 				// $this->echoTest($offres);
 			}
 			if($infosConnexion['type'] == ASSISTANT)
@@ -61,8 +89,8 @@ class BordController extends AppController
 			$annonces = $this->Annonce->getAllAnnonce();
 			$domaines = $this->Domaine->getAllDomaine();
 			$pays = $this->Pays->getAllPays();
-			// $this->echoTest($offres);
-            $this->render("bord.index",compact("type","besoins","offres",'annonces','domaines','pays'));
+			// $this->echoTest($recap);
+            $this->render("bord.index",compact("type","besoins","offres",'annonces','domaines','pays','recap'));
         }
         else
 			$this->redirect("Utilisateur/login");		

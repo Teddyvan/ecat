@@ -203,5 +203,33 @@ public function getMaxDate($idAssoc)
     }
   }
 
+/**
+* REcupere les moyenne par domaine de la derniere evaluation
+* pour le bart charg
+*/
+public function getrecapMoyenneByDomaine($idAssoc,$dateMax)
+{
+
+   $sql = "SELECT  e.note as note ,d.designation as domaine_name ,e.note/100 as note_domaine ,count(e.theme) as nb_theme
+          FROM ecat_association_evaluation e
+          INNER JOIN ecat_domaine d
+            on d.id = e.domaine
+          where e.association = :idAssoc and date = :dateMax
+          group by e.domaine
+          order by domaine ASC  ";
+  $requete = $this->getPDO()->prepare($sql);
+  try
+  {
+    $requete->bindValue(":idAssoc",$idAssoc) ;
+    $requete->bindValue(":dateMax",$dateMax) ;
+    $requete->execute();
+    return $requete->fetchALL(\PDO::FETCH_ASSOC) ;
+  }
+  catch(Exception $e)
+  {
+    echo $e->getMessage() ;
+  }
+}
+
 }
 ?>

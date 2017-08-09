@@ -131,7 +131,7 @@ class ThemeController extends AppController
 				$d ['domaine'] = $domaine['designation'] ;
 				$Theme[]  = $d ;
 			}
-			// $this->echoTest($Theme);
+			
 			//recuperer la liste des domaines
 			$domaines = $this->Domaine->getAllDomaine();
             $this->render("theme.index",compact("Theme",'domaines'));
@@ -243,13 +243,29 @@ class ThemeController extends AppController
 			$dateMax = $this->Evaluation->getMaxDate($infosConnexion["assoc_id"]);
 			//recuperation des moyenne  par domaine pour la date
 			$moyenneParDomaine = $this->Evaluation->getLastMoyenneByDomaine($infosConnexion["assoc_id"],$dateMax);
-			// $this->echoTest($moyenneParDomaine);
-
+			
+//remplissage des donnees ds le donut
 			$data[0]['label'] = 'Moyenne de la derniere evaluation';
 			$data[0]['value'] = $moyen_general['value'] ;
 			$data[1]['label'] = 'total' ;
 			$data[1]['value'] = 100 ;
-			$donnee = array("domaine"=>$moyenneParDomaine,"date"=>$moyen_general['date_max'],"data"=>$data);
+			
+			//en fonction du pourcentage changer la couleur
+		$color = array();
+
+		if($moyen_general['value'] >= 0 && $moyen_general['value'] < 25  )
+					$color[0]  = "red";
+		if($moyen_general['value'] >= 25 && $moyen_general['value'] < 50  )
+					$color[0]  = "orange" ;
+		 if($moyen_general['value'] >= 50 && $moyen_general['value'] < 75  )
+					$color[0]  = "#00ff6f" ;
+			if ($moyen_general['value'] >=75 )
+					$color[0]  = "green";						
+										
+			$color[1] = 'gray';
+
+			
+			$donnee = array("color"=>$color,"domaine"=>$moyenneParDomaine,"date"=>$moyen_general['date_max'],"data"=>$data);
 
 			$json = json_encode($donnee);
 			echo $json ;

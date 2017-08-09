@@ -26,7 +26,7 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-6">
                   <p class="text-center">
                     <strong>Derniere évaluation soumise </strong>
                   </p>
@@ -41,6 +41,42 @@
                   <!-- /.chart-responsive -->
                 </div>
                 <!-- /.col -->
+                <div class="col-md-6">
+                  <table id="offre_list" class="table table-hover table-bordered table-striped">
+  					<thead>
+              <?php  foreach($recap as $r): ?>
+  					<tr>
+  						<td><?=$r['domaine_name']?></td>			<td><?=$r['note_domaine']?>/<?=$r['nb_theme']?></td>	
+            <?php if($r['note'] >= 0 && $r['note'] < 25  ):?>
+              <td style="background-color:red">
+              <?=$r['note']?>
+              </td>
+            <?php endif;?>
+            <?php if($r['note'] >= 25 && $r['note'] < 50  ):?>
+              <td style="background-color:orange">
+              <?=$r['note']?>
+              </td>
+            <?php endif;?>
+            <?php if($r['note'] >= 50 && $r['note'] < 75  ):?>
+              <td style="background-color:#00ff6f">
+              <?=$r['note']?>
+              </td>
+            <?php endif;?>
+            <?php if($r['note'] >=75 ):?>
+              <td style="background-color:green">
+              <?=$r['note']?>
+              </td>
+            <?php endif;?>
+              </tr>
+            <?php endforeach;?>
+  					</thead>
+  					<tbody>
+  
+  
+  					</tbody>
+  		
+  				</table>
+                </div>
                   <!-- /.col -->
               </div>
               <!-- /.row -->
@@ -404,12 +440,13 @@ $.ajax({
       //le donus
       var donut_chart = Morris.Donut({
 					element: 'chart',
-					data: data.data				});
+					data: data.data	,
+        	colors : data.color});
       //le diagramme en baton
       Morris.Bar({
         element: 'bar-example',
         data: data.domaine,
-        gridTextSize :10,
+        gridTextSize :8,
         xkey: 'y',//chaine contenant le nom  contenu ds le label sur le x
         ykeys: 'a',//chaine contenant le nom  contenu ds le label sur le y
         labels: ['Moyenne'],
